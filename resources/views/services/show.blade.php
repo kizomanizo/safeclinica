@@ -8,7 +8,7 @@
             </div>
                 <div class="content">
 
-                @if(count($transactions) == 0)
+                @if(count($patients) == 0)
                 <div class="alert alert-warning" role="alert"">
                     <strong>Nope!</strong> There are no patients in {{ strtolower($service->name) }} service.
                 </div>
@@ -28,10 +28,10 @@
                         <tbody>
 
 
-                            @foreach ($transactions as $transaction)
+                            @foreach ($patients as $patient)
                             <tr>
-                                <td>{{ $transaction->patient['uid'] }}</td>
-                                <td>{{ $transaction->patient['name'] }}</td>
+                                <td>{{ $patient['uid'] }}</td>
+                                <td>{{ $patient['name'] }}</td>
                                 <td>&nbsp;</td>
                                 <td>
                                 <a href="{{url('patients')}}/{{$transaction->patient['id'] }}">Release</a>

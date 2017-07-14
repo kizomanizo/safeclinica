@@ -13,7 +13,7 @@
                         <thead>
                             <tr><th>ID</th>
                             <th>Treatment Name</th>
-                            <th>Price</th>
+                            <th>Unit Price</th>
                             <th>Added By</th>
                             <th>Added On</th>
                             <th>Edit</th>

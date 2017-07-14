@@ -70,9 +70,15 @@ class ServiceController extends Controller
         $services = Service::all();
         $service = Service::find($service);
         $id = $service->id;
-        $transactions = Patient_service::get()->where('service_id', $id)->where('status', 1);
-        return view('services/show')->with('services', $services)->with('transactions', $transactions)->with('service', $service);
-        // return($transactions);
+        $patients = $service
+            ->patients()
+            ->where('service_id', $id)
+            ->wherePivot('status', '=', 1)
+            ->get();
+        return view('services/show')
+            ->with('services', $services)
+            ->with('patients', $patients)
+            ->with('service', $service);
     }
 
     /**
@@ -86,7 +92,9 @@ class ServiceController extends Controller
         //the form for editing available services ilishaundwa ile
         $services = Service::all();
         $service = Service::find($service);
-        return view('services/edit')->with('service', $service)->with('services', $services);
+        return view('services/edit')
+            ->with('service', $service)
+            ->with('services', $services);
     }
 
     /**

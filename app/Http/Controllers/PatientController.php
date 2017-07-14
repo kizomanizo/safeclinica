@@ -50,7 +50,12 @@ class PatientController extends Controller
         // Loads the page for adding a new patient
         $insurances = Insurance::All();
         $services = Service::All();
-        return view('patients/create')->with('insurances', $insurances)->with('services', $services);
+        if (count($services)>0) {
+            return view('patients/create')->with('insurances', $insurances)->with('services', $services);
+        }
+        else {
+            return view('/settings')->with('services', $services);
+        }
     }
 
     /**
@@ -161,6 +166,7 @@ class PatientController extends Controller
     {
         $patient = $request->patient;
         $patient = Patient::find($patient);
+        $patient_id = $patient->id;
         $treatments = $request->treatments;
         $investigations = $request->investigations;
         $service = $request->service;
@@ -194,35 +200,46 @@ class PatientController extends Controller
             $patient_investigation->user = Auth::user()->name;
             $patient_investigation->status = 1;
             $patient_investigation->save();
-        }}
-
+        }}        
         // Loads the page for adding a new patient
         $services = Service::   All('name', 'id');
         $patient_services =     Patient_service::get()->where('patient_id', $patient->id);
         $patient_treatments =   Patient_treatment::get()->where('patient_id', $patient->id);
-        $servs = Patient::      leftJoin('patient_services', 'patients.id', '=', 'patient_services.patient_id')->
-                                leftJoin('services', 'patient_services.service_id', '=', 'services.id')->
-                                select('services.name as serv', 'services.cash')->
-                                where('patients.id', '=', $patient->id)->
-                                get();
+        // $servs = Patient::      leftJoin('patient_services', 'patients.id', '=', 'patient_services.patient_id')->
+        //                         leftJoin('services', 'patient_services.service_id', '=', 'services.id')->
+        //                         select('services.name as serv', 'services.cash')->
+        //                         where('patients.id', '=', $patient->id)->
+        //                         get();
+         
+        $servs = $patient->services()
+                ->where('patient_id', $patient_id)
+                ->wherePivot('status', '=', 1)
+                ->get();
+        $patient = Patient::find($patient_id);
 
-        $treatments = Patient:: leftJoin('patient_treatments', 'patients.id', '=', 'patient_treatments.patient_id')->
-                                leftJoin('treatments', 'patient_treatments.treatment_id', '=', 'treatments.id')->
-                                select('treatments.name as treatment', 'treatments.price')->
-                                where('patients.id', '=', $patient->id)->
-                                get();
-        $investigations = Patient:: 
-                                leftJoin('patient_investigations', 'patients.id', '=', 'patient_investigations.patient_id')->
-                                leftJoin('investigations', 'patient_investigations.investigation_id', '=', 'investigations.id')->
-                                select('investigations.name as investigation', 'investigations.price')->
-                                where('patients.id', '=', $patient->id)->
-                                get();
+        // $treatments = Patient:: leftJoin('patient_treatments', 'patients.id', '=', 'patient_treatments.patient_id')->
+        //                         leftJoin('treatments', 'patient_treatments.treatment_id', '=', 'treatments.id')->
+        //                         select('treatments.name as treatment', 'treatments.price')->
+        //                         where('patients.id', '=', $patient->id)->
+        //                         get();
+        $treatments = $patient->treatments()
+                    ->wherePivot('patient_id', $patient_id)
+                    ->wherePivot('status', '=', 1)
+                    ->get();
+        // $investigations = Patient:: 
+        //                         leftJoin('patient_investigations', 'patients.id', '=', 'patient_investigations.patient_id')->
+        //                         leftJoin('investigations', 'patient_investigations.investigation_id', '=', 'investigations.id')->
+        //                         select('investigations.name as investigation', 'investigations.price')->
+        //                         where('patients.id', '=', $patient->id)->
+        //                         get();
+        $investigations = $patient->investigations()
+                        ->wherePivot('patient_id', $patient_id)
+                        ->wherePivot('status', '=', 1)
+                        ->get();
 
-        return                  view('patients/index')->
-                                with('patient', $patient)->
-                                with('services', $services)->
-                                with('servs', $servs)->
-                                with('treatments', $treatments)->
-                                with('investigations', $investigations);
+        return view('patients/index')->
+                with('patient', $patient)->
+                with('services', $services);
+        // return($servs);
     }
 }

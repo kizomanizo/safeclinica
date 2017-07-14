@@ -29,8 +29,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="price">Treatment Price</label>
-                                <input type="text" name="price" id="price" class="form-control border-input" placeholder="e.g. 1700" required="" autofocus="" value="{{ $treatment->price }}">
+                                <label for="price">Price per unit</label>
+                                <input type="text" name="price" id="price" class="form-control border-input" placeholder="e.g. 200" required="" autofocus="" value="{{ $treatment->price }}">
                             </div>
                         </div>
                         <div class="col-md-8 col-md-offset-5">

@@ -6,26 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-	/**
-     * Get the relationships that belongs to the patient.
+    /**
+     * The services that belong to this patient.
      */
-    public function transactions()
+    public function services()
     {
-        return $this->hasMany('App\Transaction');
+        return $this->belongsToMany('App\Service', 'patient_services', 'patient_id', 'service_id');
     }
 
-    public function patient_treatments()
+    /**
+     * The treatments that belong to this patient.
+     */
+    public function treatments()
     {
-        return $this->hasMany('App\Patient_treatment');
+        return $this->belongsToMany('App\Treatment', 'patient_treatments', 'patient_id', 'treatment_id');
     }
 
-    public function patient_services()
+    /**
+     * The treatments that belong to this patient.
+     */
+    public function investigations()
     {
-        return $this->hasMany('App\Patient_service');
-    }
-
-    public function patient_investigations()
-    {
-        return $this->hasMany('App\Patient_investigation');
+        return $this->belongsToMany('App\Investigation', 'patient_investigations', 'patient_id', 'investigation_id');
     }
 }
