@@ -20,8 +20,6 @@ class CreatePatientsTable extends Migration
             $table->string('name');
             $table->integer('age');
             $table->string('sex');
-            $table->integer('payment_id')->unsigned();
-            $table->foreign('payment_id')->references('id')->on('insurances');
             $table->string('card')->nullable();
             $table->string('user');
             $table->timestamps();

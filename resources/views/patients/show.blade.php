@@ -18,10 +18,22 @@
                     @endforeach
                     <hr>
                     <p>Treatments and Investigations</p>
-                    <div class="row">
-                        <div id="treatmentArea" class="form-group col-lg-6 treatmentArea">
-                            <label>Treatments</label>
-                            <input type="text" name="treatments[]" id="treatments[]" class="form-control border-input" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" /><br>
+
+                        <div id="treatmentArea" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 treatmentArea">
+                            <div class="row">
+                                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
+                                        <div class="form-group">
+                                            <label>Treatment</label>
+                                            <input type="text" class="form-control border-input" name="treatments[]" id="treatments[]" class="form-control border-input" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" pattern="[0-9].{0,}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                                        <div class="form-group">
+                                            <label>Tablets</label>
+                                            <input type="text" class="form-control border-input" name="tablets[]" id="tablets[]" class="form-control border-input" placeholder="eg. 2" pattern="[0-9].{0,}" >
+                                            </div>
+                                        </div>
+                                    </div>
                             <datalist id="myTreatments">
                                 @foreach($treatments as $treatment)
                                 <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
@@ -30,7 +42,7 @@
                             <input type="hidden" name="patient" value="{{ $patient->id }}">
                         </div>
 
-                        <div id="investigationArea" class="form-group col-lg-6 investigationArea">
+                        <div id="investigationArea" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 investigationArea">
                             <label>Investigations</label>
                             <input type="text" name="investigations[]" id="investigations[]" class="form-control border-input" placeholder="start typing" list="myInvestigations" /><br>
                             <datalist id="myInvestigations">
@@ -42,18 +54,19 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class=" form-group col-lg-6">
+                    <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class=" form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <a href="#" class="add_field">Add another treatment</a>
                         </div>
-                        <div class=" form-group col-lg-6">
+                        <div class=" form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <a href="#" class="add_investigation">Add another investigation</a>
                         </div>
+                        <div class="text-left">
+                            <button type="submit" class="btn btn-info btn-fill btn-wd">Release {{ $patient->name }}</button>
+                        </div>
+                        <p>&nbsp;</p>
                     </div> 
 
-                    <div class="text-left">
-                        <button type="submit" class="btn btn-info btn-fill btn-wd">Release {{ $patient->name }}</button>
-                    </div>
                     <div class="clearfix"></div>
                     </form>
 
@@ -65,5 +78,4 @@
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 <script language="JavaScript" src="{{ asset('js/add_treatment_field.js') }}" > </script>
 
-</script>
 @endsection

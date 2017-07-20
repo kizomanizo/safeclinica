@@ -19,14 +19,32 @@ class Patient extends Model
      */
     public function treatments()
     {
-        return $this->belongsToMany('App\Treatment', 'patient_treatments', 'patient_id', 'treatment_id');
+        return $this->belongsToMany('App\Treatment', 'patient_treatments', 'patient_id', 'treatment_id')->withPivot('treatment_payment');
     }
 
     /**
-     * The treatments that belong to this patient.
+     * The investigations that belong to this patient.
      */
     public function investigations()
     {
-        return $this->belongsToMany('App\Investigation', 'patient_investigations', 'patient_id', 'investigation_id');
+        return $this->belongsToMany('App\Investigation', 'patient_investigations', 'patient_id', 'investigation_id')->withPivot('status');
+    }
+    /**
+     * The insurances that belong to this patient.
+     */
+    public function insurances()
+    {
+        return $this->belongsToMany('App\Insurance', 'patient_insurances', 'patient_id', 'insurance_id')->withPivot('card')->withTimestamps();
+    }
+
+    // For the transactions a user pakes
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
+    public function patient_payments()
+    {
+        $this->hasMany('App\Patient_payment');
     }
 }

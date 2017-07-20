@@ -40,3 +40,5 @@ Route::resource('patients', 'PatientController');
 Route::get('/test', 'PatientController@test')->name('test');
 
 Route::post('/patient/treatments', 'PatientController@treatments')->name('patient_treatments');
+
+Route::post('/patient/transactions', 'PatientController@transactions')->name('patient_transactions');

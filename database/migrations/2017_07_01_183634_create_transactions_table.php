@@ -18,11 +18,9 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients');
-            $table->integer('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services');
-            $table->string('service_details')->nullable();
-            $table->integer('service_cost');
-            $table->integer('status');
+            $table->string('type');
+            $table->integer('type_id');
+            $table->integer('type_price');
             $table->string('user');
             $table->timestamps();
     });

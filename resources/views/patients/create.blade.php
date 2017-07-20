@@ -60,7 +60,6 @@
                                             <div class="form-group">
                                                 <label for="payment">Payment Mode</label>
                                                 <select class="form-control border-input" name="payment" id="payment">
-                                                    <option value="10000">Cash</option>
                                                 @foreach($insurances as $insurance)
                                                     <option value="{{$insurance->id}}">{{$insurance->name}}</option>
                                                 @endforeach
