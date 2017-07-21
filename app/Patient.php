@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
+    protected $fillable = ['status'];
     /**
      * The services that belong to this patient.
      */
@@ -40,7 +41,7 @@ class Patient extends Model
     // For the transactions a user pakes
     public function transactions()
     {
-        return $this->hasMany('App\Transaction');
+        return $this->hasMany('App\Patient_transaction');
     }
 
     public function patient_payments()

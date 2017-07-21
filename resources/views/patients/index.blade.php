@@ -41,7 +41,7 @@
                                 @endforeach
                             @endif
                             <div class="col-md-6 courier text-muted"><em>Subtotal</em></div>
-                            <div class="col-md-6 text-right courier text-muted"><em>{{ $sprice }}</em></div>
+                            <div class="col-md-6 text-right courier text-muted"><em>{{ $prices['sprice'] }}</em></div>
                         <hr>
 
                         @if(count($patient->treatments) > 0)
@@ -71,7 +71,7 @@
                         @endif   
                         <div class="row">
                                 <div class="col-md-6"><h4 class="courier">Total</h4></div>
-                                <div class="col-md-6 text-right"><h4 class="courier">{{ $sprice + $prices['tprice'] + $prices['iprice'] }}</h4></div>
+                                <div class="col-md-6 text-right"><h4 class="courier">{{ $prices['sprice'] + $prices['tprice'] + $prices['iprice'] }}</h4></div>
                         </div>
 
                     <form method="POST" action="{{url('patient/transactions')}}" >
@@ -95,7 +95,7 @@
                         @foreach($patient->investigations as $investigation)
                             <input type="hidden" id="investigations[]" name="investigations[]" value="{{ $investigation->id }}">
                         @endforeach
-                        <input type="hidden" name="payment" value="{{ $sprice + $prices['tprice'] + $prices['iprice'] }}">
+                        <input type="hidden" name="payment" value="{{ $prices['sprice'] + $prices['tprice'] + $prices['iprice'] }}">
                         <button class="btn btn-primary text-center">Checkout</button>
                     </form>
                 </div>

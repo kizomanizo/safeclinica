@@ -22,7 +22,7 @@ class CreatePatientTreatmentsTable extends Migration
             $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->integer('treatment_tablet');
             $table->integer('treatment_payment');
-            $table->integer('status');
+            $table->tinyInteger('status');
             $table->string('user');
             $table->timestamps();
         });

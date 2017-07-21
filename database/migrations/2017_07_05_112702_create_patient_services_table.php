@@ -20,7 +20,7 @@ class CreatePatientServicesTable extends Migration
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->integer('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services');
-            $table->integer('status');
+            $table->tinyInteger('status');
             $table->string('user');
             $table->timestamps();
         });

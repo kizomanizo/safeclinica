@@ -54,12 +54,11 @@
                         <p>Registration</p>
                     </a>
                 </li>
-
                 @foreach($services as $service)
                 <li>
                     <a href="{{ url('services') }}/{{$service->id}}">
                         <i class="fa fa-user-md"></i>
-                        <p>{{$service->name}}</p>
+                        <p>{{ $service->name }}</p>
                     </a>
                 </li>
                 @endforeach
@@ -89,25 +88,17 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Patient Registration</a>
+                    <a class="navbar-brand" href="#">Safe Focus Polyclinic</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
 
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <a href="#">
                                     <i class="ti-bell"></i>
-                                    <p class="notification">5</p>
+                                    <p class="notification">{{ count($count) }}</p>
 									<p>Pending</p>
-									<b class="caret"></b>
                               </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Anna Mughwira</a></li>
-                                <li><a href="#">Edward Ngoyai Lowassa</a></li>
-                                <li><a href="#">Hashim Spunda Rungwe</a></li>
-                                <li><a href="#">Dovutwa Yahmi Dovutwa</a></li>
-                                <li><a href="#">Ali Saleh</a></li>
-                              </ul>
                         </li>
 
                         <!-- Authentication Links -->

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +25,8 @@ class ServiceController extends Controller
     {
         //List all available services
         $services = Service::all();
-        return view('services/index')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('services/index')->with('services', $services)->with('count', $count);
     }
 
     /**
@@ -31,7 +37,8 @@ class ServiceController extends Controller
     public function create()
     {
         $services = Service::all();
-        return view('services/create')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('services/create')->with('services', $services)->with('count', $count);
     }
 
     /**
@@ -50,13 +57,14 @@ class ServiceController extends Controller
         ]);
         // The service is valid, store in database
         $service = new Service;
+        $count = Patient::where('status', 1)->get();
         $service->name = $request->name;
         $service->cash = $request->cash;
         $service->insurance = $request->insurance;
         $service->user = Auth::user()->name;
         $service->save();
         $services = Service::all();
-        return view('services/index')->with('services', $services);
+        return view('services/index')->with('services', $services)->with('count', $count);
     }
 
     /**
@@ -68,17 +76,19 @@ class ServiceController extends Controller
     public function show($service)
     {
         $services = Service::all();
+        $count = Patient::where('status', 1)->get();
         $service = Service::find($service);
         $id = $service->id;
         $patients = $service
             ->patients()
             ->where('service_id', $id)
-            ->wherePivot('status', '=', 1)
+            ->where('patients.status', 1)
             ->get();
         return view('services/show')
             ->with('services', $services)
             ->with('patients', $patients)
-            ->with('service', $service);
+            ->with('service', $service)
+            ->with('count', $count);
     }
 
     /**
@@ -91,10 +101,12 @@ class ServiceController extends Controller
     {
         //the form for editing available services ilishaundwa ile
         $services = Service::all();
+        $count = Patient::where('status', 1)->get();
         $service = Service::find($service);
         return view('services/edit')
             ->with('service', $service)
-            ->with('services', $services);
+            ->with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -122,7 +134,10 @@ class ServiceController extends Controller
         $service->updated_at = date("Y-m-d H:i:s");
         $service->save();
         $services = Service::all();
-        return view('services/index')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('services/index')->
+        with('services', $services)->
+        with('count', $count);
     }
 
     /**
@@ -136,6 +151,9 @@ class ServiceController extends Controller
         //Deletes data from the Database BEWARE OF THIS DOG
         $service = Service::destroy($service);
         $services = Service::all();
-        return view('services/index')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('services/index')->
+        with('services', $services)->
+        with('count', $count);
     }
 }

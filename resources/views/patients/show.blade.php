@@ -5,11 +5,11 @@
     <div class="col-lg-12 col-md-12">
         <div class="card">
             <div class="header">
-                <h4 class="text-muted">{{ $patient->name }}</h4>
+                <h4 class="text-muted">{{ $data['patient']['name'] }}</h4>
             </div>
                 <div class="content">
                     <p>Pick an extra service</p>
-                    <form role="form" method="post" action="{{ url('/patient/treatments') }}">
+                    <form role="form" method="post" action="{{ url('/patient/release') }}">
                     {{ csrf_field() }}
                     @foreach ($services as $service)
                         <div class="radio">
@@ -35,22 +35,22 @@
                                         </div>
                                     </div>
                             <datalist id="myTreatments">
-                                @foreach($treatments as $treatment)
-                                <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
+                                @foreach( $data['treatments'] as $treatment)
+                                    <option value="{{ $treatment['id'] }}">{{ $treatment['name'] }}</option>
                                 @endforeach
                             </datalist>
-                            <input type="hidden" name="patient" value="{{ $patient->id }}">
+                            <input type="hidden" name="patient" value="{{ $data['patient']['id'] }}">
                         </div>
 
                         <div id="investigationArea" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6 investigationArea">
                             <label>Investigations</label>
                             <input type="text" name="investigations[]" id="investigations[]" class="form-control border-input" placeholder="start typing" list="myInvestigations" /><br>
                             <datalist id="myInvestigations">
-                                @foreach($investigations as $investigation)
-                                <option value="{{ $investigation->id }}">{{ $investigation->name }}</option>
+                                @foreach($data['investigations'] as $investigation)
+                                        <option value="{{ $investigation['id'] }}">{{ $investigation['name'] }}</option>
                                 @endforeach
                             </datalist>
-                            <input type="hidden" name="patient" value="{{ $patient->id }}">
+                            <input type="hidden" name="patient" value="{{ $data['patient']['id'] }}">
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                             <a href="#" class="add_investigation">Add another investigation</a>
                         </div>
                         <div class="text-left">
-                            <button type="submit" class="btn btn-info btn-fill btn-wd">Release {{ $patient->name }}</button>
+                            <button type="submit" class="btn btn-info btn-fill btn-wd">Release {{ $data['patient']['name'] }}</button>
                         </div>
                         <p>&nbsp;</p>
                     </div> 

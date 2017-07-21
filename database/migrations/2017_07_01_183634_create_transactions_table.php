@@ -13,8 +13,8 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        // Create the table for Transactions in the Database
-        Schema::create('transactions', function (Blueprint $table) {
+        // Create the table for patient transactions in the Database
+        Schema::create('patient_transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients');
@@ -34,6 +34,6 @@ class CreateTransactionsTable extends Migration
     public function down()
     {
         // Deletes the transactions table from the database
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('patient_transactions');
     }
 }

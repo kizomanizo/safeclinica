@@ -16,11 +16,11 @@ class CreatePatientsTable extends Migration
         // Create the table for Patients in the Database
         Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('uid');
+            $table->integer('uid')->nullable();
             $table->string('name');
             $table->integer('age');
             $table->string('sex');
-            $table->string('card')->nullable();
+            $table->tinyInteger('status');
             $table->string('user');
             $table->timestamps();
         });

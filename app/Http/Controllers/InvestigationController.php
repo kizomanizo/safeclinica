@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Investigation;
-use\App\Service;
+use App\Service;
+use App\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class investigationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +25,10 @@ class investigationController extends Controller
         //List all available investigations
         $investigations = Investigation::all();
         $services = Service::all();
-        return view('investigations/index')->with('investigations', $investigations)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/index')->
+        with('investigations', $investigations)->
+        with('services', $services)->with('count', $count);
     }
 
     /**
@@ -30,7 +39,10 @@ class investigationController extends Controller
     public function create()
     {
         $services = Service::all();
-        return view('investigations/create')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/create')->
+        with('services', $services)->
+        with('count', $count);
     }
 
     /**
@@ -54,7 +66,11 @@ class investigationController extends Controller
         $investigation->save();
         $investigations = Investigation::all();
         $services = Service::all();
-        return view('investigations/index')->with('investigations', $investigations)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/index')->
+        with('investigations', $investigations)->
+        with('services', $services)->
+        with('count', $count);
     }
 
     /**
@@ -79,7 +95,10 @@ class investigationController extends Controller
         //the form for editing available investigations ilishaundwa ile
         $investigation = Investigation::find($investigation);
         $services = Service::all();
-        return view('investigations/edit')->with('investigation', $investigation)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/edit')->
+        with('investigation', $investigation)->
+        with('services', $services)->with('count', $count);
     }
 
     /**
@@ -106,7 +125,11 @@ class investigationController extends Controller
         $investigation->save();
         $investigations = Investigation::all();
         $services = Service::all();
-        return view('investigations/index')->with('investigations', $investigations)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/index')->
+        with('investigations', $investigations)->
+        with('services', $services)->
+        with('count', $count);
     }
 
     /**
@@ -121,6 +144,10 @@ class investigationController extends Controller
         $investigation = Investigation::destroy($investigation);
         $investigations = Investigation::all();
         $services = Service::all();
-        return view('investigations/index')->with('investigations', $investigations)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('investigations/index')->
+        with('investigations', $investigations)->
+        with('services', $services)->
+        with('count', $count);
     }
 }

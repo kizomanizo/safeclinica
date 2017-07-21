@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Treatment;
-use\App\Service;
+use App\Service;
+use App\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class treatmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +25,11 @@ class treatmentController extends Controller
         //List all available treatments
         $treatments = Treatment::all();
         $services = Service::All();
-        return view('treatments/index')->with('treatments', $treatments)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/index')->
+            with('treatments', $treatments)->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -30,7 +40,10 @@ class treatmentController extends Controller
     public function create()
     {
         $services = Service::All();
-        return view('treatments/create')->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/create')->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -54,7 +67,11 @@ class treatmentController extends Controller
         $treatment->save();
         $treatments = Treatment::all();
         $services = Service::All();
-        return view('treatments/index')->with('treatments', $treatments)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/index')->
+            with('treatments', $treatments)->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -79,7 +96,11 @@ class treatmentController extends Controller
         //the form for editing available treatments ilishaundwa ile
         $treatment = Treatment::find($treatment);
         $services = Service::All();
-        return view('treatments/edit')->with('treatment', $treatment)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/edit')->
+            with('treatment', $treatment)->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -106,7 +127,11 @@ class treatmentController extends Controller
         $treatment->save();
         $treatments = Treatment::all();
         $services = Service::All();
-        return view('treatments/index')->with('treatments', $treatments)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/index')->
+            with('treatments', $treatments)->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -121,6 +146,10 @@ class treatmentController extends Controller
         $treatment = Treatment::destroy($treatment);
         $treatments = Treatment::all();
         $services = Service::All();
-        return view('treatments/index')->with('treatments', $treatments)->with('services', $services);
+        $count = Patient::where('status', 1)->get();
+        return view('treatments/index')->
+            with('treatments', $treatments)->
+            with('services', $services)->
+            with('count', $count);
     }
 }

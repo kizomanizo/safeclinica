@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Insurance;
 use App\Service;
+use App\Patient;
 
 use Illuminate\Http\Request;
 
@@ -30,7 +31,21 @@ class HomeController extends Controller
     public function settings()
     {
         $services = Service::all();
-        return view('settings')->with('services', $services);
+        $count = Patient::where('status', 1)->
+            get();
+        return view('settings')->
+            with('services', $services)->
+            with('count', $count);
+    }
+
+    public function reports()
+    {
+        $services = Service::all();
+        $count = Patient::where('status', 1)->
+            get();
+        return view('reports')->
+            with('services', $services)->
+            with('count', $count);
     }
 
 }

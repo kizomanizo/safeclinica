@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Patient;
 use App\Insurance;
 use App\Service;
-use App\Transaction;
 use App\Treatment;
 use App\Investigation;
 use App\Patient_treatment;
@@ -13,10 +12,10 @@ use App\Patient_service;
 use App\Patient_investigation;
 use App\Patient_insurance;
 use App\Patient_payment;
+use App\Patient_transaction;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -25,7 +24,6 @@ class PatientController extends Controller
     {
         $this->middleware('auth');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -47,11 +45,17 @@ class PatientController extends Controller
         // Loads the page for adding a new patient
         $insurances = Insurance::All();
         $services = Service::All();
+        $count = Patient::where('status', 1)->get();
         if (count($services)>0) {
-            return view('patients/create')->with('insurances', $insurances)->with('services', $services);
+            return view('patients/create')->
+                with('insurances', $insurances)->
+                with('services', $services)->
+                with('count', $count);
         }
         else {
-            return view('/settings')->with('services', $services);
+            return view('/settings')->
+                with('services', $services)->
+                with('count', $count);
         }
     }
 
@@ -70,21 +74,27 @@ class PatientController extends Controller
         'age' => 'required|integer',
         ]);
 
-        //Check if a patient number has been entered
-        // The added patient is valid, store in database
+        #register nrew patient
         $patient = new Patient;
-        if (empty($request->number)) {
-            $patient->uid = date('ymdhs');
-        }
-        else {
-            $patient->uid = $request->number;
-        }
-        // $patient->uid = date('y-m-d').'-'.$request->number;
         $patient->name = $request->fullname;
         $patient->age = $request->age;
         $patient->sex = $request->sex;
+        $patient->status = 1;
         $patient->user = Auth::user()->name;
         $patient->save();
+        
+        #generate uid
+        $id = $patient->id;
+        if($id<100) {$var='0000'.$id;}
+        elseif($id>=100 && $id<1000){$var='000'.$id;}
+        elseif($id>=1000 && $id<10000){$var='00'.$id;}
+        elseif($id>=10000 && $id<100000){$var='0'.$id;}
+        else{$var=$id;}
+        $uid = substr(chunk_split($var, 2, '-'), 0, -1);
+        $uid_patient = Patient::where('id', $id)->first();
+        $uid_patient->uid = $uid;
+        $uid_patient->save();
+
         //Populate the patient_service table now
         $patient_service = New Patient_service;
         $patient_service->patient_id = $patient->id;
@@ -93,6 +103,7 @@ class PatientController extends Controller
         $patient_service->status = 1;
         $patient_service->save();
 
+        # Add the payment type and/or insurance card to patient_insurance table
         $patient_insurance = New Patient_insurance;
         $patient_insurance->patient_id = $patient->id;
         $patient_insurance->insurance_id = $request->payment;
@@ -100,18 +111,14 @@ class PatientController extends Controller
         $patient_insurance->user = Auth::user()->name;
         $patient_insurance->save();
 
-        //Go back to the patient registration
+        #Return to the patient registering page for more patients
         $insurances = Insurance::All();
         $services = Service::All();
-        return view('patients/create')->with('insurances', $insurances)->with('services', $services);
-    }
-
-    public function test()
-    {
-        $id = 2;
-        $test = Service::find($id);
-        $result = $test->insurance;
-        return($result);
+        $count = Patient::where('status', 1)->get();
+        return view('patients/create')->
+            with('insurances', $insurances)->
+            with('services', $services)->
+            with('count', $count);
     }
 
     /**
@@ -122,11 +129,79 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        // List all patients in a select service ward
+        // List the page for serving a specific client.
         $services = Service::All();
-        $treatments = Treatment::All();
-        $investigations = Investigation::All();
-        return view('patients/show')->with('services', $services)->with('patient', $patient)->with('treatments', $treatments)->with('investigations', $investigations);
+        $count = Patient::where('status', 1)->get();
+        $patient_status = Patient_service::where('patient_id', $patient->id)->first();
+        $data = array(
+            'services' => Service::All('id', 'name'),
+            'patient' => Patient::where('id', $patient->id)->first(),
+            'treatments' => Treatment::All('id', 'name'),
+            'investigations' => Investigation::All('id', 'name')
+        );
+        if($patient_status->status == 1)
+            {
+                return view('patients/show')->
+                    with('services', $services)->
+                    with('data', $data)->
+                    with('count', $count);
+            }
+        else
+            {
+
+                $patient = Patient::find($patient)->first();
+                $patient_id = $patient->id;
+                $patient = Patient::find($patient_id);
+                $servs = $patient->services()->
+                    where('patient_id', $patient_id)->
+                    get();
+
+                $treatments = $patient->treatments()->
+                    where('patient_id', $patient_id)->
+                    get();
+
+                $investigations = $patient->investigations()->
+                    where('patient_id', $patient_id)->
+                    wherePivot('status', '=', 1)->
+                    get();
+
+                $insurances = $patient->insurances()->
+                    where('patient_id', $patient_id)->
+                    get()->
+                    first();
+
+                if ($insurances->name == 'Cash')
+                {
+                    $sprice = $patient->services()->
+                    where('patient_id', $patient_id)->
+                    sum('cash');
+                }
+                else
+                {
+                    $sprice = $patient->services()->
+                    where('patient_id', $patient_id)->
+                    sum('insurance');
+                }
+
+                $prices = array(
+                    'iprice' =>$patient->investigations()->
+                        where('patient_id', $patient_id)->
+                        sum('price'), 
+                    'tprice' =>$patient->treatments()->
+                        where('patient_id', $patient_id)->
+                        sum('treatment_payment'),
+                    'sprice' =>$sprice
+                    );
+
+                return view('patients/index')->
+                    with('patient', $patient)->
+                    with('services', $services)->
+                    with('insurances', $insurances)->
+                    with('prices', $prices)->
+                    with('count', $count);
+
+                // return $iprice;
+            }
     }
 
     /**
@@ -163,7 +238,7 @@ class PatientController extends Controller
         //
     }
 
-    public function treatments(Request $request, Patient $patient)
+    public function release(Request $request, Patient $patient)
     {
         $patient = $request->patient;
         $patient = Patient::find($patient);
@@ -209,11 +284,12 @@ class PatientController extends Controller
             $patient_investigation->investigation_id = $investigations[$key];
             $patient_investigation->user = Auth::user()->name;
             $patient_investigation->status = 1;
-            // $patient_investigation->save();
+            $patient_investigation->save();
         }}        
 
         $services = Service::   All('name', 'id');
         $patient = Patient::find($patient_id);
+        $count = Patient::where('status', 1)->get();
 
         $servs = $patient->services()->
             where('patient_id', $patient_id)->
@@ -236,17 +312,6 @@ class PatientController extends Controller
             where('patient_id', $patient_id)->
             get()->first();
 
-        $prices = array(
-            'iprice' => $patient->investigations()->
-                where('patient_id', $patient_id)->
-                wherePivot('status', '=', 1)->
-                sum('price'), 
-            'tprice' => $patient->treatments()->
-                where('patient_id', $patient_id)->
-                wherePivot('status', '=', 1)->
-                sum('treatment_payment')
-
-            );
         if ($insurances->name == 'Cash') {
             $sprice = $patient->services()->
             where('patient_id', $patient_id)->
@@ -260,16 +325,33 @@ class PatientController extends Controller
             sum('insurance');
             }
 
-        $iprice = $patient->investigations()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            sum('price');
+        $prices = array(
+            'iprice' => $patient->investigations()->
+                where('patient_id', $patient_id)->
+                wherePivot('status', '=', 1)->
+                sum('price'), 
+            'tprice' => $patient->treatments()->
+                where('patient_id', $patient_id)->
+                wherePivot('status', '=', 1)->
+                sum('treatment_payment'),
+            'sprice' => $sprice
+            );
+
+        # Update the status in the patient services, treatments and investigation table
+        Patient_service::where('patient_id', $patient_id)->
+            update(['status' => 0]);
+        Patient_treatment::where('patient_id', $patient_id)->
+            update(['status' => 0]);
+        Patient_investigation::where('patient_id', $patient_id)->
+            update(['status' => 0]);
+
+        #Return the page that lists the summary of costs incurred
         return view('patients/index')->
             with('patient', $patient)->
             with('services', $services)->
             with('insurances', $insurances)->
             with('prices', $prices)->
-            with('sprice', $sprice);
+            with('count', $count);
     }
 
     public function transactions(Request $request)
@@ -281,25 +363,34 @@ class PatientController extends Controller
         $patient = $request->patient;
         $patient = Patient::where('id', $patient)->first();
         $insurance = $patient->insurances->first();
+        if (!empty($servicesArray)) {
         $servicesArray = array_filter($services);
+        }
+        if (!empty($treatmentsArray)) {
         $treatmentsArray = array_filter($treatments);
+        }
+        if (!empty($investigationsArray)) {
         $investigationsArray = array_filter($investigations);
+        }
+
 
         if (!empty($servicesArray)) {
         foreach ($services as $service => $n)
             {
-                $transaction = New Transaction;
+                $transaction = New Patient_transaction;
                 $transaction->patient_id = $patient->id;
                 $transaction->type = 'service';
                 $transaction->type_id = $servicesArray[$service];
                 if ($insurance->name == 'Cash')
                     {
-                        $price = Service::where('id', $servicesArray[$service])->get()->first();
+                        $price = Service::where('id', $servicesArray[$service])->
+                            get()->first();
                         $price = $price->cash;
                     }
                 else
                     {
-                        $price = Service::where('id', $servicesArray[$service])->get()->first();
+                        $price = Service::where('id', $servicesArray[$service])->
+                            get()->first();
                         $price = $price->insurance;
                     }
                 $transaction->type_price = $price;
@@ -308,9 +399,10 @@ class PatientController extends Controller
             }
         }
 
+        if (!empty($treatmentsArray)) {
         foreach ($treatments as $treatment => $n)
             {
-                $transaction = New Transaction;
+                $transaction = New Patient_transaction;
                 $transaction->patient_id = $patient->id;
                 $transaction->type = 'treatment';
                 $transaction->type_id = $treatmentsArray[$treatment];
@@ -323,32 +415,46 @@ class PatientController extends Controller
                 $transaction->user = Auth::user()->name;
                 $transaction->save();
             }
+        }
 
+        if (!empty($investigationsArray)) {
         foreach ($investigations as $investigation => $n)
             {
-                $transaction = New Transaction;
+                $transaction = New Patient_transaction;
                 $transaction->patient_id = $patient->id;
                 $transaction->type = 'investigation';
                 $transaction->type_id = $investigationsArray[$investigation];
-                $price = Investigation::where('id', $investigationsArray[$investigation])->get()->first();
+                $price = Investigation::where('id', $investigationsArray[$investigation])->
+                    get()->first();
                 $price = $price->price;
                 $transaction->type_price = $price;
                 $transaction->user = Auth::user()->name;
                 $transaction->save();
             }
+        }
+        #Enter a new payment record in the patient_payments table for the amount paid
+        #Start by checking if a payment was made in full or just part of it
         $patient_payment = New Patient_payment;
-        if (count($request->paidamount)>0) {
-            $payment = $request->paidamount;
-        }
-        else {
-            $payment = $request->payment;
-        }
+        if (count($request->paidamount)>0)
+            {
+                $payment = $request->paidamount;
+            }
+        else
+            {
+                $payment = $request->payment;
+            }
+        
         $patient_payment->patient_id = $patient->id;
         $patient_payment->paid = $payment;
         $patient_payment->status = 1;
         $patient_payment->user = Auth::user()->name;
-        $patient_payment->save();
-        return count($request->paidamount);
+        $patient_payment->save(); #Enter whatever amount was paid as a payment in the table
+
+        #Update the status in patients table to 0 so that they dont show up in services.show
+        $patient = Patient::find($patient)->first();
+        $patient->status = 0;
+        $patient->save();
+
+        return $this->create();
     }
 }
-

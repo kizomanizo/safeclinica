@@ -20,7 +20,7 @@ class CreatePatientInvestigationsTable extends Migration
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->integer('investigation_id')->unsigned();
             $table->foreign('investigation_id')->references('id')->on('investigations');
-            $table->integer('status');
+            $table->tinyInteger('status');
             $table->string('user');
             $table->timestamps();
         });
