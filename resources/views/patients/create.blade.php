@@ -15,7 +15,13 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Enter patient details or number</h4>
-                            </div>
+                                @if(isset($registered))
+                                    <div class="alert alert-success" id="success-alert">
+                                        <button type="button" class="close" data-dismiss="alert">x</button>
+                                        <strong>Success! </strong> Patient registered.
+                                    </div>
+                                @endif
+                            </div>  
                             <div class="content">
                                 <form role="form" method="POST" action="{{ url('patients') }}">
                                 {{ csrf_field() }}
@@ -87,15 +93,17 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Register Patient</button>
-                                    </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Register Patient</button>
+                            </div>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-<script type="text/javascript" src="{{ url('js/custom/disable_input.js') }}" ></script>
+<!-- <script type="text/javascript" src="{{ url('js/custom/disable_input.js') }}" ></script> -->
+<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 
+<script type="text/javascript" src="{{ asset('js/custom/removealerts.js') }}"></script>
 @endsection

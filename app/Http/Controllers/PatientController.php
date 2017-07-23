@@ -43,8 +43,8 @@ class PatientController extends Controller
     public function create()
     {
         // Loads the page for adding a new patient
-        $insurances = Insurance::All();
-        $services = Service::All();
+        $insurances = Insurance::All('id', 'name');
+        $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->get();
         if (count($services)>0) {
             return view('patients/create')->
@@ -64,6 +64,7 @@ class PatientController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @todo Pop an alert after a new patient has been registered
      */
     public function store(Request $request)
     {
@@ -115,10 +116,12 @@ class PatientController extends Controller
         $insurances = Insurance::All();
         $services = Service::All();
         $count = Patient::where('status', 1)->get();
+        $registered = Patient::where('id', $patient->id)->first();
         return view('patients/create')->
             with('insurances', $insurances)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->
+            with('registered', $registered);
     }
 
     /**
