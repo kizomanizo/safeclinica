@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Treatment;
-use App\Service;
-use App\Patient;
+use App\Http\Models\Treatment;
+use App\Http\Models\Service;
+use App\Http\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

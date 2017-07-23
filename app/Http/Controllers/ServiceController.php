@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Service;
-use App\Patient;
-use App\Transaction;
-use App\Patient_service;
+use App\Http\Models\Service;
+use App\Http\Models\Patient;
+use App\Http\Models\Transaction;
+use App\Http\Models\Patient_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

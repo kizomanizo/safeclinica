@@ -18,7 +18,7 @@
                                 @if(isset($registered))
                                     <div class="alert alert-success" id="success-alert">
                                         <button type="button" class="close" data-dismiss="alert">x</button>
-                                        <strong>Success! </strong> Patient registered.
+                                        <strong>Success! </strong> {{$registered->name}} registered with number <em>{{$registered->uid}}</em>.
                                     </div>
                                 @endif
                             </div>  

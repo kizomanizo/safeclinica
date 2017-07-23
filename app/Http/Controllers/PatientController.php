@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Patient;
-use App\Insurance;
-use App\Service;
-use App\Treatment;
-use App\Investigation;
-use App\Patient_treatment;
-use App\Patient_service;
-use App\Patient_investigation;
-use App\Patient_insurance;
-use App\Patient_payment;
-use App\Patient_transaction;
+use App\Http\Models\Patient;
+use App\Http\Models\Insurance;
+use App\Http\Models\Service;
+use App\Http\Models\Treatment;
+use App\Http\Models\Investigation;
+use App\Http\Models\Patient_treatment;
+use App\Http\Models\Patient_service;
+use App\Http\Models\Patient_investigation;
+use App\Http\Models\Patient_insurance;
+use App\Http\Models\Patient_payment;
+use App\Http\Models\Patient_transaction;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;

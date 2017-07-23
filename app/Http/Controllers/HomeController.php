@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Insurance;
-use App\Service;
-use App\Patient;
+use App\Http\Models\Insurance;
+use App\Http\Models\Service;
+use App\Http\Models\Patient;
 
 use Illuminate\Http\Request;
 
