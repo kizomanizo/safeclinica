@@ -11,6 +11,6 @@ class Insurance extends Model
      */
     public function patients()
     {
-        return $this->belongsToMany('App\Patient', 'patient_insurances', 'insurance_id', 'patient_id')->withPivot('card')->withTimestamps();
+        return $this->belongsToMany('App\Http\Models\Patient', 'patient_insurances', 'insurance_id', 'patient_id')->withPivot('card')->withTimestamps();
     }
 }

@@ -9,6 +9,6 @@ class Patient_transaction extends Model
     // Eloquent ORM a patient who owns this transaction
     public function patient()
     {
-    	return $this->belongsTo('App\Patient');
+    	return $this->belongsTo('App\Http\Models\Patient');
     }
 }

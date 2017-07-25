@@ -25,8 +25,6 @@ Route::get('/registration', 'PatientController@create')->name('registration');
 
 Route::get('/settings', 'HomeController@settings')->name('settings');
 
-Route::get('/reports', 'HomeController@reports')->name('reports');
-
 Route::resource('services', 'ServiceController');
 
 Route::resource('insurances', 'InsuranceController');
@@ -42,3 +40,5 @@ Route::get('/test', 'PatientController@test')->name('test');
 Route::post('/patient/release', 'PatientController@release')->name('patient_release');
 
 Route::post('/patient/transactions', 'PatientController@transactions')->name('patient_transactions');
+
+Route::get('/reports', 'ReportController@index')->name('reports');

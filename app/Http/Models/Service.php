@@ -11,6 +11,6 @@ class Service extends Model
      */
     public function patients()
     {
-        return $this->belongsToMany('App\Patient', 'patient_services', 'service_id', 'patient_id');
+        return $this->belongsToMany('App\Http\Models\Patient', 'patient_services', 'service_id', 'patient_id');
     }
 }

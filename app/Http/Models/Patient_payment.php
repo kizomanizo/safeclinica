@@ -15,6 +15,6 @@ class Patient_payment extends Model
 
     public function patient()
     {
-    	$this->belongsTo('App\Patient');
+    	$this->belongsTo('App\Http\Models\Patient');
     }
 }

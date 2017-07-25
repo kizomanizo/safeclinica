@@ -11,7 +11,7 @@ class Investigation extends Model
      */
     public function patients()
     {
-        return $this->belongsToMany('App\Patient', 'patient_investigations', 'investigation_id', 'patient_id');
+        return $this->belongsToMany('App\Http\Models\Patient', 'patient_investigations', 'investigation_id', 'patient_id');
     }
 
 }

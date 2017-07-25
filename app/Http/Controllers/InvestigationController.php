@@ -77,7 +77,7 @@ class investigationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Investigation  $investigation
+     * @param  \App\Http\Models\Investigation  $investigation
      * @return \Illuminate\Http\Response
      */
     public function show(Investigation $investigation)
@@ -88,7 +88,7 @@ class investigationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Investigation  $investigation
+     * @param  \App\Http\Models\Investigation  $investigation
      * @return \Illuminate\Http\Response
      */
     public function edit($investigation)
@@ -106,7 +106,7 @@ class investigationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Investigation  $investigation
+     * @param  \App\Http\Models\Investigation  $investigation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $investigation)
@@ -136,7 +136,7 @@ class investigationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Investigation  $investigation
+     * @param  \App\Http\Models\Investigation  $investigation
      * @return \Illuminate\Http\Response
      */
     public function destroy($investigation)
