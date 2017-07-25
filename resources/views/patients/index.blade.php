@@ -29,19 +29,19 @@
                                 @foreach($patient->services as $serv)
                                 <div class="row">
                                     <div class="col-md-6 courier">{{ $serv->name }}</div>
-                                    <div class="col-md-6 text-right courier">{{ $serv->cash }}</div>
+                                    <div class="col-md-6 text-right courier">{{ number_format($serv->cash) }}</div>
                                 </div>    
                                 @endforeach
                             @else
                                 @foreach($patient->services as $serv)
                                 <div class="row">
                                     <div class="col-md-6 courier">{{ $serv->name }}</div>
-                                    <div class="col-md-6 text-right courier">{{ $serv->insurance }}</div>
+                                    <div class="col-md-6 text-right courier">{{ number_format($serv->insurance) }}</div>
                                 </div>    
                                 @endforeach
                             @endif
                             <div class="col-md-6 courier text-muted"><em>Subtotal</em></div>
-                            <div class="col-md-6 text-right courier text-muted"><em>{{ $prices['sprice'] }}</em></div>
+                            <div class="col-md-6 text-right courier text-muted"><em>{{ number_format($prices['sprice']) }}</em></div>
                         <hr>
 
                         @if(count($patient->treatments) > 0)
@@ -49,11 +49,11 @@
                             @foreach($patient->treatments as $treatment)
                             <div class="row">
                                 <div class="col-md-6 courier">{{ $treatment->name }}</div>
-                                <div class="col-md-6 text-right courier">{{ $treatment->pivot->treatment_payment }}</div>
+                                <div class="col-md-6 text-right courier">{{ number_format($treatment->pivot->treatment_payment) }}</div>
                             </div>  
                             @endforeach
                             <div class="col-md-6 courier text-muted"><em>Subtotal</em></div>
-                            <div class="col-md-6 text-right courier text-muted"><em>{{ $prices['tprice'] }}</em></div>
+                            <div class="col-md-6 text-right courier text-muted"><em>{{ number_format($prices['tprice']) }}</em></div>
                         <hr>
                         @endif
 
@@ -62,16 +62,16 @@
                             @foreach($patient->investigations as $investigation)
                             <div class="row">
                                 <div class="col-md-6 courier">{{ $investigation->name }}</div>
-                                <div class="col-md-6 text-right courier">{{ $investigation->price }}</div>
+                                <div class="col-md-6 text-right courier">{{ number_format($investigation->price) }}</div>
                             </div>
                             @endforeach
                                 <div class="col-md-6 courier text-muted"><em>Subtotal</em></div>
-                                <div class="col-md-6 text-right courier text-muted"><em>{{ $prices['iprice'] }}</em></div>
+                                <div class="col-md-6 text-right courier text-muted"><em>{{ number_format($prices['iprice']) }}</em></div>
                         </hr>
                         @endif   
                         <div class="row">
                                 <div class="col-md-6"><h4 class="courier">Total</h4></div>
-                                <div class="col-md-6 text-right"><h4 class="courier">{{ $prices['sprice'] + $prices['tprice'] + $prices['iprice'] }}</h4></div>
+                                <div class="col-md-6 text-right"><h4 class="courier">{{ number_format($prices['sprice'] + $prices['tprice'] + $prices['iprice']) }}</h4></div>
                         </div>
 
                     <form method="POST" action="{{url('patient/transactions')}}" >

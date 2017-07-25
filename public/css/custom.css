@@ -2,3 +2,17 @@
   font-family: "Courier New", fixed;
   font-size: 10;
 }
+.card .numbers {
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.card .stats {
+    color: #a9a9a9;
+    font-weight: 300;
+}
+
+.tshs {
+	color: #a9a9a9;
+	font-size: 0.8em;
+}

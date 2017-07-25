@@ -16,6 +16,7 @@
     <link href="{{ asset('css/paper/paper-dashboard.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/paper/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 <style type="text/css">
