@@ -120,16 +120,27 @@
                         </div>
                     </div>
                 </div>
-
-
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h5 class="title">Statistical Reports</h5>
+                                    </div>
+                                    <div class="content">
+                                        <div class="ct-chart ct-perfect-fourth"></div>
+                                        <p>Number of patients registered daily</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title">Statistical Reports</h4>
+                                        <h4 class="title">Other Reports</h4>
                                     </div>
                                     <div class="content">
-                                        <div class="ct-chart ct-perfect-fourth"></div>
+                                    Blah blah
                                     </div>
                                 </div>
                             </div>
@@ -175,20 +186,19 @@
 </div>
 
 <script type="text/javascript" src="{{ asset('js/chartist.min.js') }}"></script>
-<script type="text/javascript">
+<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript">
+        var mon = '{{ $statistics['month'] }}';
+    var serie = '{{ json_encode($dailypatients) }}';
     var data = {
-      // A labels array that can contain any sort of values
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      // Our series array that contains series objects or in this case series data arrays
-      series: [
-        [5, 2, 4, 2, 0]
-      ]
-    };
-
-// Create a new line chart object where as first parameter we pass in a selector
-// that is resolving to our chart container element. The Second parameter
-// is the actual data object.
-new Chartist.Line('.ct-chart', data);
-    
-</script>
+            labels: [{{$daysinamonth}}],
+            series: [JSON.parse([serie])],
+            };
+    var options = {
+            low: 0,
+            showArea: true      
+            };
+    ;
+    new Chartist.Line('.ct-chart', data, options);
+    </script>
 @endsection

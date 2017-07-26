@@ -51,6 +51,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
+            'strict' => env('DB_STRICT', ''),
             'engine' => null,
         ],
 

@@ -16,3 +16,8 @@
 	color: #a9a9a9;
 	font-size: 0.8em;
 }
+
+.bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+    stroke: #d70206;
+    fill: #d70206;
+}
