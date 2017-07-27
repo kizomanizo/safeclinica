@@ -102,8 +102,4 @@
                         </div>
                     </div>
 
-<script type="text/javascript" src="{{ url('js/custom/disable_input.js') }}" ></script>
-<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('js/custom/removealerts.js') }}"></script>
 @endsection

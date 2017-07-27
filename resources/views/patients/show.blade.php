@@ -74,8 +74,4 @@
                 </div>
         </div>
     </div>
-
-<script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-<script language="JavaScript" src="{{ asset('js/add_treatment_field.js') }}" > </script>
-
 @endsection

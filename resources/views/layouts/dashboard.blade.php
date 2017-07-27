@@ -16,7 +16,6 @@
     <link href="{{ asset('css/paper/paper-dashboard.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/paper/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 <style type="text/css">
@@ -159,17 +158,19 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="{{ asset('js/paper/jquery-1.10.2.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/paper/bootstrap.min.js') }}" type="text/javascript"></script>
 
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="{{ asset('js/paper/bootstrap-checkbox-radio.js') }}"></script>
 
-    <!--  Charts Plugin -->
-    <script src="{{ asset('js/paper/chartist.min.js') }}"></script>
-
     <!--  Notifications Plugin    -->
     <script src="{{ asset('js/paper/bootstrap-notify.js') }}"></script>
+
+    <!--  Custom JS scripts for doing various tasks -->
+    <script src="{{ asset('js/custom/disable_input.js') }}" ></script>
+    <script src="{{ asset('js/custom/removealerts.js') }}"></script>
+    <script src="{{ asset('js/custom/add_treatment_field.js') }}" > </script>
 
 
 </html>
