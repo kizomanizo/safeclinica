@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds to seed the Users table adding one user.
@@ -12,10 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Safe Focus',
-            'username' => 'safefocus',
-            'password' => bcrypt('safefocus'),
-        ]);
+        $user = factory(App\User::class, 5)->create();
     }
 }

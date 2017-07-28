@@ -244,7 +244,7 @@ var myDoughnutChart = new Chart(ctxGender, {
         ]
     },
     options: {
-        cutoutPercentage: 70,
+        cutoutPercentage: 50,
         pieceLabel: {
             // mode 'label', 'value' or 'percentage', default is 'percentage'
             mode: 'percentage',
@@ -315,7 +315,7 @@ var myDoughnutChart = new Chart(ctxAge, {
         ]
     },
     options: {
-        cutoutPercentage: 70,
+        cutoutPercentage: 50,
         pieceLabel: {
             // mode 'label', 'value' or 'percentage', default is 'percentage'
             mode: 'percentage',

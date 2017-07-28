@@ -93,6 +93,27 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="region">Region</label>
+                                                <input type="text" name="region" id="region" class="form-control border-input"  placeholder="Region" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="district"">District</label>
+                                                <input type="text" name="district"" id="district"" class="form-control border-input"  placeholder="District" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="village">Village</label>
+                                                <input type="text" name="village" id="village" class="form-control border-input"  placeholder="Village" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-info btn-fill btn-wd">Register Patient</button>
                             </div>

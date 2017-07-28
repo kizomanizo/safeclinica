@@ -30,6 +30,7 @@ class Patient extends Model
     {
         return $this->belongsToMany('App\Http\Models\Investigation', 'patient_investigations', 'patient_id', 'investigation_id')->withPivot('status');
     }
+
     /**
      * The insurances that belong to this patient.
      */
@@ -38,14 +39,27 @@ class Patient extends Model
         return $this->belongsToMany('App\Http\Models\Insurance', 'patient_insurances', 'patient_id', 'insurance_id')->withPivot('card')->withTimestamps();
     }
 
-    // For the transactions a user pakes
+    /**
+     * For the transactions a user makes
+     */ 
     public function transactions()
     {
         return $this->hasMany('App\Http\Models\Patient_transaction');
     }
 
+    /**
+     * Final payments by the patien
+     */
     public function patient_payments()
     {
         $this->hasMany('App\Http\Models\Patient_payment');
+    }
+
+    /**
+     * The district the patient comes from
+     */
+    public function district()
+    {
+        $this->belongsTo('App\Http\Models\District');
     }
 }

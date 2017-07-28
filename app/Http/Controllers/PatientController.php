@@ -80,6 +80,9 @@ class PatientController extends Controller
         $patient->name = $request->fullname;
         $patient->age = $request->age;
         $patient->sex = $request->sex;
+        $patient->region = $request->region;
+        $patient->district = $request->district;
+        $patient->village = $request->village;
         $patient->status = 1;
         $patient->user = Auth::user()->name;
         $patient->save();
