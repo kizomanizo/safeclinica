@@ -19,7 +19,7 @@ class RegionsTableSeeder extends Seeder
         // $this->command->info('User table seeded!');
 
         DB::disableQueryLog();
-        $path = 'database/seeds/sql/regions.sql';
+        $path = 'database/seeds/sql/pwani.sql';
         DB::unprepared(file_get_contents($path));
         $this->command->info('Regions table seeded!');
     }

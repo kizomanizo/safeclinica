@@ -97,7 +97,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="region">Region</label>
-                                                <input type="text" name="region" id="region" class="form-control border-input"  placeholder="Region" required="">
+                                                <select id="region" name="region" class="form-control border-input">
+                                                    <option>Select a region</option>
+                                                    @foreach($location['regions'] as $region)
+                                                    <option>{{ $region->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4">

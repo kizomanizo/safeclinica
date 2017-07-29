@@ -17,7 +17,7 @@ class CreateDistrictsTable extends Migration
         Schema::create('districts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('region_id')->unsigned();
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->string('name');
             $table->string('user')->nullable()->default('Kizito');
             $table->timestamps();

@@ -12,6 +12,6 @@ class Patient_servicesTableSeeder extends Seeder
     public function run()
     {
         // Create fake services for patients using faker factory
-        $patients = factory(App\Http\Models\Patient_service::class, 300)->create();
+        $patients = factory(App\Http\Models\Patient_service::class, 10)->create();
     }
 }

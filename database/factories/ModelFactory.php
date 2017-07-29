@@ -18,7 +18,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(['Administrator', 'Safe Focus', 'User']),
         'username' => $faker->randomElement(['administrator', 'safefocus', 'user']),
-        'password' => $password ?: $password = bcrypt('safefocus'),
+        'password' => $password ?: $password = bcrypt('safeclinica'),
         'remember_token' => str_random(10),
     ];
 });

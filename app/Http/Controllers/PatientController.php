@@ -13,6 +13,8 @@ use App\Http\Models\Patient_investigation;
 use App\Http\Models\Patient_insurance;
 use App\Http\Models\Patient_payment;
 use App\Http\Models\Patient_transaction;
+use App\Http\Models\Region;
+use App\Http\Models\District;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -46,11 +48,17 @@ class PatientController extends Controller
         $insurances = Insurance::All('id', 'name');
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->get();
+        $location = array(
+            'regions' => Region::All(),
+            'district' => District::All()
+            );
+        
         if (count($services)>0) {
             return view('patients/create')->
                 with('insurances', $insurances)->
                 with('services', $services)->
-                with('count', $count);
+                with('count', $count)->
+                with('location', $location);
         }
         else {
             return view('/settings')->
@@ -80,7 +88,6 @@ class PatientController extends Controller
         $patient->name = $request->fullname;
         $patient->age = $request->age;
         $patient->sex = $request->sex;
-        $patient->region = $request->region;
         $patient->district = $request->district;
         $patient->village = $request->village;
         $patient->status = 1;

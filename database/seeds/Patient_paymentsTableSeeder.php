@@ -12,6 +12,6 @@ class Patient_paymentsTableSeeder extends Seeder
     public function run()
     {
         // Create fake payments for patients using faker factory
-        $patients = factory(App\Http\Models\Patient_payment::class, 300)->create();
+        $patients = factory(App\Http\Models\Patient_payment::class, 10)->create();
     }
 }
