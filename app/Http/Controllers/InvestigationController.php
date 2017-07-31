@@ -26,7 +26,7 @@ class investigationController extends Controller
         //List all available investigations
         $investigations = Investigation::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->with('count', $count);
@@ -40,7 +40,7 @@ class investigationController extends Controller
     public function create()
     {
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/create')->
         with('services', $services)->
         with('count', $count);
@@ -67,7 +67,7 @@ class investigationController extends Controller
         $investigation->save();
         $investigations = Investigation::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->
@@ -96,7 +96,7 @@ class investigationController extends Controller
         //the form for editing available investigations ilishaundwa ile
         $investigation = Investigation::find($investigation);
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/edit')->
         with('investigation', $investigation)->
         with('services', $services)->with('count', $count);
@@ -126,7 +126,7 @@ class investigationController extends Controller
         $investigation->save();
         $investigations = Investigation::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->
@@ -145,7 +145,7 @@ class investigationController extends Controller
         $investigation = Investigation::destroy($investigation);
         $investigations = Investigation::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->

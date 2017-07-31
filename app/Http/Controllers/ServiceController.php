@@ -25,7 +25,7 @@ class ServiceController extends Controller
     {
         //List all available services
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('services/index')->with('services', $services)->with('count', $count);
     }
 
@@ -37,7 +37,7 @@ class ServiceController extends Controller
     public function create()
     {
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('services/create')->with('services', $services)->with('count', $count);
     }
 
@@ -57,7 +57,7 @@ class ServiceController extends Controller
         ]);
         // The service is valid, store in database
         $service = new Service;
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $service->name = $request->name;
         $service->cash = $request->cash;
         $service->insurance = $request->insurance;
@@ -76,7 +76,7 @@ class ServiceController extends Controller
     public function show($service)
     {
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $service = Service::find($service);
         $id = $service->id;
         $patients = $service
@@ -101,7 +101,7 @@ class ServiceController extends Controller
     {
         //the form for editing available services ilishaundwa ile
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $service = Service::find($service);
         return view('services/edit')
             ->with('service', $service)
@@ -134,7 +134,7 @@ class ServiceController extends Controller
         $service->updated_at = date("Y-m-d H:i:s");
         $service->save();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('services/index')->
         with('services', $services)->
         with('count', $count);
@@ -151,7 +151,7 @@ class ServiceController extends Controller
         //Deletes data from the Database BEWARE OF THIS DOG
         $service = Service::destroy($service);
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('services/index')->
         with('services', $services)->
         with('count', $count);

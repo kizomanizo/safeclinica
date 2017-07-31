@@ -1,6 +1,7 @@
-.courier {
-  font-family: "Courier New", fixed !important; 
-  font-size: 10;
+.arial {
+  font-family: "Tahoma", sans-serif !important; 
+  font-size: 0.9em !important;
+  padding: 5px !important;
 }
 .card .numbers {
     font-size: 1.5em;

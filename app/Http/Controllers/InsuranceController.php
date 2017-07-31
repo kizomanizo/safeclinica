@@ -27,7 +27,7 @@ class InsuranceController extends Controller
         //List all available insurances
         $insurances = Insurance::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
@@ -43,7 +43,7 @@ class InsuranceController extends Controller
     {
         //Load the adding page
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/create')->
         with('services', $services)->
         with('count', $count);
@@ -68,7 +68,7 @@ class InsuranceController extends Controller
         $insurance->save();
         $insurances = Insurance::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
@@ -97,7 +97,7 @@ class InsuranceController extends Controller
         //the form for editing available insurances ilishaundwa ile
         $insurance = Insurance::find($insurance);
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/edit')->with('insurance', $insurance)->
         with('services', $services)->
         with('count', $count);
@@ -125,7 +125,7 @@ class InsuranceController extends Controller
         $insurance->save();
         $insurances = Insurance::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
@@ -144,7 +144,7 @@ class InsuranceController extends Controller
         $insurance = insurance::destroy($insurance);
         $insurances = insurance::all();
         $services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->

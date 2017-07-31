@@ -46,3 +46,7 @@ Route::get('/patient/ajaxdistricts', 'PatientController@ajaxdistricts');
 Route::get('/reports', 'ReportController@index')->name('reports');
 
 Route::get('/reports/full', 'ReportController@full');
+
+Route::get('/patients/credit/{patient}', 'PatientController@credit')->name('credit');
+
+Route::post('/patients/paycredit', 'PatientController@paycredit')->name('paycredit');

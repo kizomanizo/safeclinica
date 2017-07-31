@@ -24,7 +24,7 @@ class ReportController extends Controller
     public function index()
     {
     	$services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $transactions = Patient_transaction::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->sum('type_price');
         $payments = Patient_payment::whereYear('created_at', date('Y'))->
 	        whereMonth('created_at', date('m'))->
@@ -130,9 +130,9 @@ class ReportController extends Controller
 	 */
     public function full()
     {
-    	$patients = Patient::where('status', 0)->with('district')->with('services')->with('transactions')->get();
+    	$patients = Patient::whereMonth('created_at', date('m'))->where('status', 0)->get();
     	$services = Service::all();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         // return $patients;
         return view('reports/full')->
         	with('services', $services)->

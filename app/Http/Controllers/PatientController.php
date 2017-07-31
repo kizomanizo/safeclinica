@@ -49,7 +49,7 @@ class PatientController extends Controller
         // Loads the page for adding a new patient
         $insurances = Insurance::All('id', 'name');
         $services = Service::All('id', 'name');
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $location = array(
             'regions' => Region::All(),
             'districts' => District::All()
@@ -90,7 +90,7 @@ class PatientController extends Controller
     {
         // The validation of the form
         $this->validate($request, [
-        'number' => 'integer|nullable|digits:10',
+        'number' => 'integer|nullable',
         'fullname' => 'required|max:50',
         'age' => 'required|integer',
         'district' => 'required',
@@ -143,7 +143,7 @@ class PatientController extends Controller
         #Return to the patient registering page for more patients
         $insurances = Insurance::All();
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $registered = Patient::where('id', $patient->id)->first();
         return view('patients/create')->
             with('insurances', $insurances)->
@@ -163,7 +163,7 @@ class PatientController extends Controller
     {
         // List the page for serving a specific client.
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         $patient_status = Patient_service::where('patient_id', $patient->id)->first();
         $data = array(
             'services' => Service::All('id', 'name'),
@@ -319,9 +319,9 @@ class PatientController extends Controller
             $patient_investigation->save();
         }}        
 
-        $services = Service::   All('name', 'id');
+        $services = Service::All('name', 'id');
         $patient = Patient::find($patient_id);
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
 
         $servs = $patient->services()->
             where('patient_id', $patient_id)->
@@ -487,7 +487,62 @@ class PatientController extends Controller
         $patient = Patient::find($patient)->first();
         $patient->status = 0;
         $patient->save();
-
         return $this->create();
+    }
+
+    public function credit(Patient $patient)
+    {
+        $services = Service::All('name', 'id');
+        $patient = Patient::find($patient)->first();
+        $patient_id = $patient->id;
+        $count = Patient::where('status', 1)->count();
+        $servs = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
+        $treatments = $patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
+        $investigations = $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
+        $insurances = $patient->insurances()->where('patient_id', $patient_id)->get()->first();
+        if ($insurances->name == 'Cash') {
+            $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('cash');
+                }
+        else {
+            $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('insurance');
+            }
+        $prices = array(
+            'iprice' =>$patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->sum('price'), 
+            'tprice' =>$patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->sum('treatment_payment'),
+            'sprice' =>$sprice
+            );
+
+        #Return the page that lists the summary of credit incurred
+        return view('patients/credit')->
+            with('patient', $patient)->
+            with('services', $services)->
+            with('insurances', $insurances)->
+            with('prices', $prices)->
+            with('count', $count);
+        return $investigations;
+    }
+
+    public function paycredit(Request $request)
+    {
+        // The validation of the form
+        $this->validate($request, [
+        'credit' => 'integer|required',
+        ]);
+
+        # Add payments for patient
+        $payment = new Patient_payment;
+        $payment->patient_id = $request->patient;
+        $payment->paid = $request->credit;
+        $payment->status = 0;
+        $payment->user = Auth::user()->name;
+        $payment->save();
+
+        $patients = Patient::where('status', 0)->with('district')->with('services')->with('transactions')->get();
+        $services = Service::all();
+        $count = Patient::where('status', 1)->count();
+        return view('reports/full')->
+            with('services', $services)->
+            with('count', $count)->
+            with('patients', $patients);
     }
 }

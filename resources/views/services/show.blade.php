@@ -20,28 +20,19 @@
                         <tr>
                             <th>Patient No</th>
                             <th>Patient Name</th>
-                            <th>&nbsp;</th>
+                            <th>Age, Sex</th>
                             <th>Proceed to pay</th>
-                            <th>Other services</th>
                         </tr>
                         </thead>
                         <tbody>
-
-
                             @foreach ($patients as $patient)
                             <tr>
-                                <td>{{ $patient['uid'] }}</td>
+                                <td class="courier">{{ $patient['uid'] }}</td>
                                 <td>{{ $patient['name'] }}</td>
-                                <td>&nbsp;</td>
-                                <td>
-                                <a href="{{url('patients')}}/{{$transaction->patient['id'] }}">Release</a>
-                                </td>
-                                <td>
-                                    Investigation | Treatment
-                                </td>
+                                <td>{{ ucfirst($patient->sex) .', '. $patient->age }}</td>
+                                <td><a href="{{url('patients')}}/{{$patient['id'] }}">Proceed</a></td>
                             </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                     </div>

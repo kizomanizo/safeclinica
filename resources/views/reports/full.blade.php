@@ -9,14 +9,13 @@
                 <h4 class="text-muted"><i class="ti-timer"> </i>{{ date('F') }}'s Full Summary</h4>
             </div>
             <div class="content">
-                    <table class="table table-sm table-responsive table-condensed">
+                    <table class="table table-striped table-responsive arial">
                         <thead>
                             <tr>
                                 <th>UID</th>
                                 <th>Patient</th>
-                                <th>Sex | Age</th>
-<!--                                 <th>Address</th>
- -->                                <th>Ward</th>
+                                <th>Sex, Age</th>
+                                <th>Ward</th>
                                 <th>Investigations</th>
                                 <th>Treatments</th>
                                 <th>Bill</th>
@@ -27,11 +26,10 @@
                         <tbody>
                         @foreach($patients as $patient)
                             <tr>
-                                <td class="courier">{{ $patient->uid }}</td>
+                                <td>{{ $patient->uid }}</td>
                                 <td>{{ $patient->name }}</td>
-                                <td>{{ $patient->sex }} | {{ $patient->age }}</td>
-<!--                                 <td>{{ $patient->district->name }}, {{ $patient->village }}</td>
- -->                                <td>
+                                <td>{{ ucfirst($patient->sex) }}, {{ $patient->age }}</td>
+                                <td>
                                     @foreach($patient->services as $service)
                                         {{ $service->name }}<br>
                                     @endforeach
@@ -56,10 +54,17 @@
                                     <!-- Using blade echo the results -->
                                     {{ number_format($bill) }}
                                 </td>
-                                <td>
+                                <td class="text-right">
+                                    @php ($paid = 0)
                                     @foreach($patient->patient_payments as $payment)
-                                        {{ number_format($payment->paid) }}<br>
+                                        @php ($paid += $payment->paid)
                                     @endforeach
+                                        @if ($bill > $paid)
+                                            {{ number_format($paid) }}<a href="{{ url('patients/credit/').'/'.$patient->id }}"><i class='fa fa-close text-danger'></i></a>
+                                        @else
+                                            {{ number_format($paid) }}<i class="fa  fa-check-circle text-success"></i><br>
+                                        @endif
+
                                 </td>
                                 <td class="text-muted">{{ $patient->created_at->format('M, d') }}</td>
                             </tr>

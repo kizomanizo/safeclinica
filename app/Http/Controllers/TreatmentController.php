@@ -25,7 +25,7 @@ class treatmentController extends Controller
         //List all available treatments
         $treatments = Treatment::all();
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
@@ -40,7 +40,7 @@ class treatmentController extends Controller
     public function create()
     {
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/create')->
             with('services', $services)->
             with('count', $count);
@@ -67,7 +67,7 @@ class treatmentController extends Controller
         $treatment->save();
         $treatments = Treatment::all();
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
@@ -96,7 +96,7 @@ class treatmentController extends Controller
         //the form for editing available treatments ilishaundwa ile
         $treatment = Treatment::find($treatment);
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/edit')->
             with('treatment', $treatment)->
             with('services', $services)->
@@ -127,7 +127,7 @@ class treatmentController extends Controller
         $treatment->save();
         $treatments = Treatment::all();
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
@@ -146,7 +146,7 @@ class treatmentController extends Controller
         $treatment = Treatment::destroy($treatment);
         $treatments = Treatment::all();
         $services = Service::All();
-        $count = Patient::where('status', 1)->get();
+        $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->

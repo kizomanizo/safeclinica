@@ -11,7 +11,7 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-    <link href="{{ asset('css/paper/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/vendors/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/paper/animate.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/paper/paper-dashboard.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/paper/themify-icons.css') }}" rel="stylesheet">
@@ -96,7 +96,7 @@
                         <li class="dropdown">
                               <a href="#">
                                     <i class="ti-bell"></i>
-                                    <p class="notification">{{ count($count) }}</p>
+                                    <p class="notification">{{ $count }}</p>
 									<p>Pending</p>
                               </a>
                         </li>

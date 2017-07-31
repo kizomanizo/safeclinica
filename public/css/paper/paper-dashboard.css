@@ -998,7 +998,7 @@ textarea.form-control {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 12px;
+  padding: 15px;
   vertical-align: middle; }
 .table .th-description {
   max-width: 150px; }
@@ -1028,7 +1028,7 @@ textarea.form-control {
 .table-striped > thead > tr > td,
 .table-striped > tbody > tr > td,
 .table-striped > tfoot > tr > td {
-  padding: 15px 8px; }
+  padding: 5px 8px; }
 
 /*      Checkbox and radio         */
 .checkbox,

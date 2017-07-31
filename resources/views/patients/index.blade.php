@@ -10,8 +10,9 @@
                 <div class="content">
                     <p><div class="row">
                         <div class="col-lg-6 col-md-6">
-                        <h4><span class="courier">{{ $patient->uid }}</span></h4>
-                        <strong>Patient: </strong> <span class="courier">{{ strtoupper($patient->name) }}</span><br>
+                        <h4><span class="courier">{{ $patient->name }}</span></h4>
+                        <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($patient['uid'], 'C39', 1,20)}}" alt="barcode" /><br>
+                        <strong>Patient: </strong> <span class="courier">{{ strtoupper($patient->uid) }}</span><br>
                         <strong>Age: </strong> <span class="courier">{{ $patient->age }}</span><br>
                         <strong>Sex: </strong> <span class="courier">{{ strtoupper($patient->sex) }}</span><br>
                         @if($insurances->name == 'Cash')
@@ -20,6 +21,7 @@
                         <strong>Payment Mode: </strong><span class="courier">{{ strtoupper('Insurance') }}</span><br>
                         <strong>Insurer: </strong> <span class="courier">{{ strtoupper($insurances->name) }}</span><br>
                         <strong>Card No: </strong> <span class="courier">{{ $insurances->pivot->card }}</span><br>
+                        <strong>Address: </strong> <span class="courier">{{ $patient->district->name .','. $patient->village }}</span><br>
                         @endif
                         </div>
 
