@@ -32,9 +32,11 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
+        $region_id = $request->region_id;
+        $districts = District::where('region_id', $region_id)->get();
+        return $districts;
     }
 
     /**
@@ -50,7 +52,7 @@ class PatientController extends Controller
         $count = Patient::where('status', 1)->get();
         $location = array(
             'regions' => Region::All(),
-            'district' => District::All()
+            'districts' => District::All()
             );
         
         if (count($services)>0) {
@@ -68,11 +70,21 @@ class PatientController extends Controller
     }
 
     /**
+     * A method to pull all districts for a given region
+     * @return [array] [districts]
+     */
+    public function ajaxdistricts(Request $request)
+    {
+        $region_id = $request->region_id;
+        $districts = District::where('region_id', $region_id)->get();
+        return $districts;
+    }
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     * @todo Pop an alert after a new patient has been registered
+     * @todo Pop an alert after a new patient has been registered @done
      */
     public function store(Request $request)
     {
@@ -81,6 +93,7 @@ class PatientController extends Controller
         'number' => 'integer|nullable|digits:10',
         'fullname' => 'required|max:50',
         'age' => 'required|integer',
+        'district' => 'required',
         ]);
 
         #register nrew patient
@@ -88,8 +101,13 @@ class PatientController extends Controller
         $patient->name = $request->fullname;
         $patient->age = $request->age;
         $patient->sex = $request->sex;
-        $patient->district = $request->district;
-        $patient->village = $request->village;
+        $patient->district_id = $request->district;
+        if(!empty($request->village)) {
+            $patient->village = $request->village;
+        }
+        else {
+            $patient->village = 'Unknown';
+        }
         $patient->status = 1;
         $patient->user = Auth::user()->name;
         $patient->save();
@@ -131,7 +149,8 @@ class PatientController extends Controller
             with('insurances', $insurances)->
             with('services', $services)->
             with('count', $count)->
-            with('registered', $registered);
+            with('registered', $registered)->
+            with('location', $this->create()->location);
     }
 
     /**
@@ -283,7 +302,7 @@ class PatientController extends Controller
             $treatment_payment = $treatment_payment->price * $tablets[$key];
             $patient_treatment->patient_id = $patient->id;
             $patient_treatment->treatment_id = $treatments[$key];
-            $patient_treatment->treatment_tablets = $tablets[$key];
+            $patient_treatment->treatment_tablet = $tablets[$key];
             $patient_treatment->treatment_payment = $treatment_payment;
             $patient_treatment->user = Auth::user()->name;
             $patient_treatment->status = 1;
