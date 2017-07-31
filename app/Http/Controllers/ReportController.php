@@ -13,7 +13,9 @@ use App\Http\Models\Patient_transaction;
 
 class ReportController extends Controller
 {
-    // Calling the constructor middleware for auth
+    /**
+     * Calling the constructor middleware for auth
+     */
     public function __construct()
     {
     	$this->middleware('auth');
@@ -121,5 +123,21 @@ class ReportController extends Controller
         	with('services', $services)->
         	with('count', $count)->
         	with('statistics', $statistics);
+    }
+	/**
+	 * Pulls a page that shows detailed table about patients
+	 * @return [view] [list all patients in a month]
+	 */
+    public function full()
+    {
+    	$patients = Patient::where('status', 0)->with('district')->with('services')->get();
+    	$services = Service::all();
+        $count = Patient::where('status', 1)->get();
+        // return $patients;
+        return view('reports/full')->
+        	with('services', $services)->
+        	with('count', $count)->
+        	with('patients', $patients);
+
     }
 }
