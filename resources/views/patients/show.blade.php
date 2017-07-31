@@ -24,7 +24,9 @@
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
                                         <div class="form-group">
                                             <label>Treatment</label>
-                                            <input type="text" class="form-control border-input" name="treatments[]" id="treatments[]" class="form-control border-input" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" pattern="[0-9].{0,}" >
+                                            <input type="text" class="form-control border-input" name="treatments[]" id="treatments[]" class="form-control border-input" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" pattern="[0-9].{0,}" autocomplete="disabled">
+                                            <label for="response"></label>
+                                            <input type="hidden" name="response" id="response">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
@@ -74,4 +76,17 @@
                 </div>
         </div>
     </div>
+<script type="text/javascript" src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/vendors/jqueryui-1.10.2.js') }}"></script>
+<script type="text/javascript">  
+    $(function() {
+        $("#treatment").autocomplete({
+            source: "getdata",
+            minLength: 1,
+            select: function( event, ui ) {
+                $('#response').val(ui.item.id);
+            }
+        });
+    });
+</script>
 @endsection
