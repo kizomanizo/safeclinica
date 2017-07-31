@@ -41,7 +41,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Full Name</label>
-                                                <input type="text" name="fullname" id="fullname" class="form-control border-input"  placeholder="Full Name" required="" autofocus="">
+                                                <input type="text" name="fullname" id="fullname" class="form-control border-input"  placeholder="Full Name" required="" autofocus="" autocomplete="disabled">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -100,7 +100,7 @@
                                                 <select id="region" name="region" class="form-control border-input">
                                                     <option>Select a region</option>
                                                     @foreach($location['regions'] as $region)
-                                                    <option>{{ $region->name }}</option>
+                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -108,13 +108,16 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="district"">District</label>
-                                                <input type="text" name="district"" id="district"" class="form-control border-input"  placeholder="District" required="">
+                                                <select id="district" name="district" class="form-control border-input">
+                                                    <option value="">Select a district</option>
+                                                    <option value=""></option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="village">Village</label>
-                                                <input type="text" name="village" id="village" class="form-control border-input"  placeholder="Village" required="">
+                                                <label for="village">Village(optional)</label>
+                                                <input type="text" name="village" id="village" class="form-control border-input"  placeholder="Village">
                                             </div>
                                         </div>
                                     </div>
@@ -128,4 +131,19 @@
                         </div>
                     </div>
 
+<script src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    $('#region').on('change', function(e){
+        console.log(e);
+        var region_id = e.target.value;
+ 
+        $.get('{{ url('patient') }}/ajaxdistricts?region_id=' + region_id, function(data) {
+            console.log(data);
+            $('#district').empty();
+            $.each(data, function(index,subCatObj){
+                $('#district').append("<option value='"+subCatObj.id+"'>"+subCatObj.name+"</option>");
+            });
+        });
+    });
+</script>
 @endsection
