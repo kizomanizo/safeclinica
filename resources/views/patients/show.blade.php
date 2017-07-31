@@ -77,16 +77,5 @@
         </div>
     </div>
 <script type="text/javascript" src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/vendors/jqueryui-1.10.2.js') }}"></script>
-<script type="text/javascript">  
-    $(function() {
-        $("#treatment").autocomplete({
-            source: "getdata",
-            minLength: 1,
-            select: function( event, ui ) {
-                $('#response').val(ui.item.id);
-            }
-        });
-    });
-</script>
+
 @endsection

@@ -130,7 +130,7 @@ class ReportController extends Controller
 	 */
     public function full()
     {
-    	$patients = Patient::where('status', 0)->with('district')->with('services')->get();
+    	$patients = Patient::where('status', 0)->with('district')->with('services')->with('transactions')->get();
     	$services = Service::all();
         $count = Patient::where('status', 1)->get();
         // return $patients;

@@ -1,5 +1,5 @@
 .courier {
-  font-family: "Courier New", fixed;
+  font-family: "Courier New", fixed !important; 
   font-size: 10;
 }
 .card .numbers {
