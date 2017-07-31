@@ -52,7 +52,7 @@ class Patient extends Model
      */
     public function patient_payments()
     {
-        $this->hasMany('App\Http\Models\Patient_payment');
+        return $this->hasMany('App\Http\Models\Patient_payment');
     }
 
     /**
@@ -60,6 +60,6 @@ class Patient extends Model
      */
     public function district()
     {
-        $this->belongsTo('App\Http\Models\District');
+        return $this->belongsTo('App\Http\Models\District');
     }
 }
