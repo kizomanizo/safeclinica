@@ -41,4 +41,8 @@ Route::post('/patient/release', 'PatientController@release')->name('patient_rele
 
 Route::post('/patient/transactions', 'PatientController@transactions')->name('patient_transactions');
 
+Route::get('/patient/ajaxdistricts', 'PatientController@ajaxdistricts');
+
 Route::get('/reports', 'ReportController@index')->name('reports');
+
+Route::get('/reports/full', 'ReportController@full');
