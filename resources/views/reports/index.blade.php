@@ -6,7 +6,7 @@
     <div class="col-lg-12 col-md-12">
         <div class="card">
             <div class="header">
-                <h4 class="text-muted"><i class="ti-timer"> </i>Month's Summary</h4>
+                <h4 class="text-muted"><i class="ti-timer"> </i>{{ date('F') }}'s Summary</h4>
             </div>
                 <div class="content">
                     <div class="container-fluid">
@@ -125,7 +125,7 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title">Statistical Reports</h4>
+                                        <h4 class="title">Statistical Reports <a href="{{ url('reports/full') }}">Get a full report</a></h4>
                                     </div>
                                     <div class="content">
                                         <canvas id="monthPatients" width="400" height="150"></canvas>
