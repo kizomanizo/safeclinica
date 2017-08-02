@@ -11,4 +11,7 @@ class Patient_transaction extends Model
     {
     	return $this->belongsTo('App\Http\Models\Patient');
     }
+
+    protected $table = 'patient_transactions';
+    protected $fillable = ['status'];
 }

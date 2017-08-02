@@ -11,6 +11,6 @@ class Patient_service extends Model
      *
      * @var string
      */
-    protected $table = 'Patient_services';
+    protected $table = 'patient_services';
     protected $fillable = ['status'];
 }

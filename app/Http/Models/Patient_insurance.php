@@ -11,5 +11,5 @@ class Patient_insurance extends Model
      *
      * @var string
      */
-    protected $table = 'Patient_insurances';
+    protected $table = 'patient_insurances';
 }

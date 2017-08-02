@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
+	protected $table = ['services'];
     /**
      * The patients that have this service.
      */

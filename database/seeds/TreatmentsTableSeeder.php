@@ -11,6 +11,12 @@ class TreatmentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $treatments = factory(App\Http\Models\Treatment::class, 20)->create();
+                // Seed this table from an SQL file
+        Eloquent::unguard();
+        DB::disableQueryLog();
+        $path = 'database/seeds/sql/treatments.sql';
+        DB::unprepared(file_get_contents($path));
+        $this->command->info('Treatments table seeded');
+
     }
 }

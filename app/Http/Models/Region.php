@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
+	protected $table = ['regions'];
     // The districts that belong to this region.
     public function districts()
     {

@@ -11,6 +11,6 @@ class Patient_investigation extends Model
      *
      * @var string
      */
-    protected $table = 'Patient_investigations';
+    protected $table = 'patient_investigations';
     protected $fillable = ['status'];
 }

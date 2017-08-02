@@ -11,7 +11,7 @@ class Patient_payment extends Model
      *
      * @var string
      */
-    protected $table = 'Patient_payments';
+    protected $table = 'patient_payments';
 
     public function patient()
     {
