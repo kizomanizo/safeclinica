@@ -21,8 +21,8 @@
                         <strong>Payment Mode: </strong><span class="courier">{{ strtoupper('Insurance') }}</span><br>
                         <strong>Insurer: </strong> <span class="courier">{{ strtoupper($insurances->name) }}</span><br>
                         <strong>Card No: </strong> <span class="courier">{{ $insurances->pivot->card }}</span><br>
-                        <strong>Address: </strong> <span class="courier">{{ $patient->district->name .','. $patient->village }}</span><br>
                         @endif
+                        <strong>Address: </strong> <span class="courier">{{ $patient->district->name .', '. $patient->village }}</span><br>
                         </div>
 
                         <div class="col-lg-6 col-md-6">

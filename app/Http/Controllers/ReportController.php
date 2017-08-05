@@ -67,11 +67,13 @@ class ReportController extends Controller
 		        whereMonth('created_at', date('m'))->
 		        distinct()->
 	        	count('uid'),
-	        'children' => Patient::where('age', '<', 12)->
+	        'children' => Patient::where('age', '>', 5)->
+	        	where('age', '<', 12)->
 		        whereMonth('created_at', date('m'))->
 		        distinct()->
 	        	count('uid'),
-	        'adults' => Patient::where('age', '<', 65)->
+	        'adults' => Patient::where('age', '>', 12)->
+	        	where('age', '<', 65)->
 		        whereMonth('created_at', date('m'))->
 		        distinct()->
 	        	count('uid'),

@@ -31,8 +31,7 @@ class HomeController extends Controller
     public function settings()
     {
         $services = Service::all();
-        $count = Patient::where('status', 1)->
-            get();
+        $count = Patient::where('status', 1)->count();
         return view('settings')->
             with('services', $services)->
             with('count', $count);
@@ -41,8 +40,7 @@ class HomeController extends Controller
     public function reports()
     {
         $services = Service::all();
-        $count = Patient::where('status', 1)->
-            get();
+        $count = Patient::where('status', 1)->count();
         return view('reports')->
             with('services', $services)->
             with('count', $count);

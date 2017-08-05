@@ -11,7 +11,7 @@ class TreatmentsTableSeeder extends Seeder
      */
     public function run()
     {
-                // Seed this table from an SQL file
+        // Seed this table from an SQL file
         Eloquent::unguard();
         DB::disableQueryLog();
         $path = 'database/seeds/sql/treatments.sql';

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Insurance extends Model
 {
-	protected $table = ['insurances'];
+	protected $table = 'insurances';
     /**
      * The patients that have taken specific insurancess
      */

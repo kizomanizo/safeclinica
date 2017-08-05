@@ -58,11 +58,15 @@ class treatmentController extends Controller
         $this->validate($request, [
         'name' => 'required|unique:treatments|max:50',
         'price' => 'required|integer|max:900000',
+        'drug' => 'required|max:50',
+        'type' => 'required|max:50',
         ]);
         // The treatment is valid, store in database
         $treatment = new Treatment;
         $treatment->name = $request->name;
         $treatment->price = $request->price;
+        $treatment->drug = $request->drug;
+        $treatment->type = $request->type;
         $treatment->user = Auth::user()->name;
         $treatment->save();
         $treatments = Treatment::all();
@@ -121,6 +125,8 @@ class treatmentController extends Controller
         $treatment = Treatment::find($treatment);
         $treatment->name = $request->name;
         $treatment->price = $request->price;
+        $treatment->drug = $request->drug;
+        $treatment->type = $request->type;
         $treatment->user = $request->user;
         $treatment->created_at = $request->created_at;
         $treatment->updated_at = date("Y-m-d H:i:s");

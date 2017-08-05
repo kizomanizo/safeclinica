@@ -3,6 +3,12 @@
   font-size: 0.9em !important;
   padding: 5px !important;
 }
+
+.courier {
+  font-family: "Courier", mono !important; 
+  font-size: 1em !important;
+  padding: 15px !important;
+}
 .card .numbers {
     font-size: 1.5em;
     text-align: right;

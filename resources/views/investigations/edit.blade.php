@@ -18,8 +18,8 @@
                         </div>
                     @endif
 
+                    <form role="form" method="POST" action="{{ url('investigations') }}/{{ $investigation->id }}">
                     <div class="row">
-                        <form role="form" method="POST" action="{{ url('investigations') }}/{{ $investigation->id }}">
                         {{ csrf_field() }}
                         <div class="col-md-6">
                             <div class="form-group">
@@ -33,6 +33,14 @@
                                 <input type="text" name="price" id="price" class="form-control border-input" placeholder="e.g. 23000" required="" autofocus="" value="{{ $investigation->price }}">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="type">Investigation Type</label>
+                                <input type="text" name="type" id="type" class="form-control border-input"  placeholder="e.g. Urology" required="" value="{{ $investigation->type }}">
+                            </div>
+                        </div>
                         <div class="col-md-8 col-md-offset-5">
                             <button type="submit" value="" class="btn btn-primary">
                                 Edit {{ $investigation->name }}
@@ -42,8 +50,8 @@
                             <input type="hidden" name="id" value="{{ $investigation->id }}">
                             {{ method_field('PUT') }}
                         </div>
-                        </form>
                     </div>
+                    </form>
 
                 </div>
             </div>

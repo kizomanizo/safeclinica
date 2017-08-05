@@ -290,18 +290,18 @@ var myDoughnutChart = new Chart(ctxAge, {
         datasets: [{
             data: [{{$statistics['infants']}}, {{$statistics['children']}}, {{$statistics['adults']}}, {{$statistics['elderly']}}],
             backgroundColor: [
-                'rgba(180, 210, 220, 0.5)',
-                'rgba(140, 190, 210, 0.5)',
-                'rgba(80, 160, 190, 0.5)',
-                'rgba(30, 90, 110, 0.5)'
-            ],
-            borderColor: 'rgba(43, 135, 22, 0.5)',
-            borderWidth: 1,
-            hoverBackgroundColor: [
                 'rgba(180, 210, 220, 1)',
                 'rgba(140, 190, 210, 1)',
                 'rgba(80, 160, 190, 1)',
                 'rgba(30, 90, 110, 1)'
+            ],
+            borderColor: 'rgba(43, 135, 22, 0.5)',
+            borderWidth: 1,
+            hoverBackgroundColor: [
+                'rgba(180, 210, 220, 0.5)',
+                'rgba(140, 190, 210, 0.5)',
+                'rgba(80, 160, 190, 0.5)',
+                'rgba(30, 90, 110, 0.5)'
                 ],
             hoverBorderColor: "rgba(43, 135, 22, 1)",
         }],

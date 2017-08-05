@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Treatment extends Model
 {
-	protected $table = ['treatments'];
+	protected $table = 'treatments';
 	// Patients that have taken some treatments and yet to pay
     public function patients()
     {

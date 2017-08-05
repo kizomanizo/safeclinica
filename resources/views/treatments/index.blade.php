@@ -13,11 +13,11 @@
                         <thead>
                             <tr><th>ID</th>
                             <th>Treatment Name</th>
-                            <th>Unit Price</th>
+                            <th>Price</th>
+                            <th>Type</th>
                             <th>Added By</th>
                             <th>Added On</th>
                             <th>Edit</th>
-                            <th>||</th>
                             <th>Delete</th>
                         </tr></thead>
                         <tbody>
@@ -27,10 +27,10 @@
                                 <td>{{ $treatment->id }}</td>
                                 <td>{{ $treatment->name }}</td>
                                 <td>{{ $treatment->price }}</td>
+                                <td>{{ $treatment->type }}</td>
                                 <td class="text-muted">{{ $treatment->user }}</td>
                                 <td class="text-muted">{{ $treatment->created_at->format('d-M, Y') }}</td>
                                 <td><a href="{{url('treatments')}}/{{$treatment->id}}/edit" >Edit</a></td>
-                                <td>&nbsp;</td>
                                 <td>
                                     <form role="form" action="{{url('treatments')}}/{{$treatment->id}}" method="post">
                                         {{ csrf_field() }}

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     protected $fillable = ['status'];
-    protected $table = ['patients'];
+    protected $table = 'patients';
     /**
      * The services that belong to this patient.
      */

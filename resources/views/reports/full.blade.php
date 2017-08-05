@@ -12,15 +12,15 @@
                     <table class="table table-striped table-responsive arial">
                         <thead>
                             <tr>
-                                <th>UID</th>
+                                <th width="8%">UID</th>
                                 <th>Patient</th>
-                                <th>Sex, Age</th>
+                                <th width="9%">Sex, Age</th>
                                 <th>Ward</th>
                                 <th>Investigations</th>
                                 <th>Treatments</th>
-                                <th>Bill</th>
-                                <th>Paid</th>
-                                <th>Date</th>
+                                <th width="8%">Bill</th>
+                                <th width="9%">Paid</th>
+                                <th width="8%">Date</th>
                             </tr>
                         </thead>
                         <tbody>

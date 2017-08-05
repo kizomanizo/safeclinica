@@ -114,7 +114,8 @@ class PatientController extends Controller
         
         #generate uid
         $id = $patient->id;
-        if($id<100) {$var='0000'.$id;}
+        if($id<10) {$var='00000'.$id;}
+        elseif($id>=10 && $id<100) {$var='0000'.$id;}
         elseif($id>=100 && $id<1000){$var='000'.$id;}
         elseif($id>=1000 && $id<10000){$var='00'.$id;}
         elseif($id>=10000 && $id<100000){$var='0'.$id;}
@@ -173,24 +174,13 @@ class PatientController extends Controller
         );
         if($patient_status->status == 1)
             {
-                return view('patients/show')->
-                    with('services', $services)->
-                    with('data', $data)->
-                    with('count', $count);
+                return view('patients/show')->with('services', $services)->with('data', $data)->with('count', $count);
             }
         else
             {
-
-                $patient = Patient::find($patient)->first();
                 $patient_id = $patient->id;
-                $patient = Patient::find($patient_id);
-                $servs = $patient->services()->
-                    where('patient_id', $patient_id)->
-                    get();
-
-                $treatments = $patient->treatments()->
-                    where('patient_id', $patient_id)->
-                    get();
+                $servs = $patient->services()->where('patient_id', $patient_id)->get();
+                $treatments = $patient->treatments()->where('patient_id', $patient_id)->get();
 
                 $investigations = $patient->investigations()->
                     where('patient_id', $patient_id)->
@@ -370,14 +360,12 @@ class PatientController extends Controller
             );
 
         # Update the status in the patient services, treatments and investigation table
-        Patient_service::where('patient_id', $patient_id)->
-            update(['status' => 0]);
-        Patient_treatment::where('patient_id', $patient_id)->
-            update(['status' => 0]);
-        Patient_investigation::where('patient_id', $patient_id)->
-            update(['status' => 0]);
+        Patient_service::where('patient_id', $patient_id)->update(['status' => 0]);
+        Patient_treatment::where('patient_id', $patient_id)->update(['status' => 0]);
+        Patient_investigation::where('patient_id', $patient_id)->update(['status' => 0]);
 
         #Return the page that lists the summary of costs incurred
+        // return $patient;
         return view('patients/index')->
             with('patient', $patient)->
             with('services', $services)->
@@ -484,7 +472,6 @@ class PatientController extends Controller
         $patient_payment->save(); #Enter whatever amount was paid as a payment in the table
 
         #Update the status in patients table to 0 so that they dont show up in services.show
-        $patient = Patient::find($patient)->first();
         $patient->status = 0;
         $patient->save();
         return $this->create();
@@ -493,7 +480,7 @@ class PatientController extends Controller
     public function credit(Patient $patient)
     {
         $services = Service::All('name', 'id');
-        $patient = Patient::find($patient)->first();
+        // $patient = Patient::find($patient)->first();
         $patient_id = $patient->id;
         $count = Patient::where('status', 1)->count();
         $servs = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();

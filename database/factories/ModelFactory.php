@@ -17,7 +17,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->randomElement(['Administrator', 'Safe Focus', 'User']),
-        'username' => $faker->randomElement(['administrator', 'safefocus', 'user']),
+        'username' => $faker->unique->randomElement(['administrator', 'safefocus', 'user']),
         'password' => $password ?: $password = bcrypt('safeclinica'),
         'remember_token' => str_random(10),
     ];
@@ -43,9 +43,9 @@ $factory->define(App\Http\Models\Investigation::class, function (Faker\Generator
         'name' => $faker->randomElement([
 			'Alpha-Fetoprotein (AFP)', 'Amylase', 'Antibody Tests (Coombs Test)', 'Antinuclear Antibodies (ANA)', 'C-Reactive Protein (CRP)', 'Calcium (Ca)', 'Cardiac Enzyme Studies', 'Folic Acid', 'Follicle-Stimulating Hormone', 'HDL Cholesterol', 'Helicobacter pylori', 'Hepatitis Panel', 'Homocysteine', 'Parathyroid Hormone (PTH)', 'Partial Thromboplastin Time', 'Sickle Cell Test', 'Sodium (Na)', 'Stool Analysis', 'Testosterone', 'Thyroid Hormone', 'Thyroid-Stimulating Hormone (TSH)', 'Total Serum Protein', 'Viral Tests', 'Vitamin B12',
         	]),
-        'price' => $faker->randomElement([7000, 2400, 3600, 5000, 4500, 1000, 2000, 3000, 20000, 12000, 6000, 15000]),
+        'price' => $faker->randomElement([7000, 2400, 3600, 5000, 4500, 1000, 2000, 3000, 9000, 7000, 6000, 12000]),
         'user' => $user ?: $user = 'Administrator',
-        'created_at' => $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now', $timezone = date_default_timezone_get()),
+        'created_at' => $faker->dateTimeBetween($startDate = '-3 months', $endDate = 'now', $timezone = date_default_timezone_get()),
     ];
 });
 

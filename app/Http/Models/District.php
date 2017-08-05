@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
-    protected $table = ['districts'];
+    protected $table = 'districts';
     // This district belongs to this region.
     public function region()
     {

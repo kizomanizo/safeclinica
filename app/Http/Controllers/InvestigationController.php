@@ -63,6 +63,7 @@ class investigationController extends Controller
         $investigation = new Investigation;
         $investigation->name = $request->name;
         $investigation->price = $request->price;
+        $investigation->type = $request->type;
         $investigation->user = Auth::user()->name;
         $investigation->save();
         $investigations = Investigation::all();
@@ -120,6 +121,7 @@ class investigationController extends Controller
         $investigation = Investigation::find($investigation);
         $investigation->name = $request->name;
         $investigation->price = $request->price;
+        $investigation->type = $request->type;
         $investigation->user = $request->user;
         $investigation->created_at = $request->created_at;
         $investigation->updated_at = date("Y-m-d H:i:s");
