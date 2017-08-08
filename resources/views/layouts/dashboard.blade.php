@@ -159,6 +159,7 @@
 
     <!--   Core JS Files   -->
     <script src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vendors/app.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/paper/bootstrap.min.js') }}" type="text/javascript"></script>
 
     <!--  Checkbox, Radio & Switch Plugins -->

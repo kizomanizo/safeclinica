@@ -25,14 +25,24 @@
                             <div class="content">
                                 <form role="form" method="POST" action="{{ url('patients') }}">
                                 {{ csrf_field() }}
-                                     <div class="row">
-                                        <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2 col-lg-2">
+                                            <div class="form-group">
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        Return
+                                                        <input type="radio" name="returning" id="returning" value="1" class="form-control radio-inline" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 col-lg-10">
                                             <div class="form-group">
                                                 <label for="number">Search return patient number</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                <div class="input-group-addon" style="border:1px solid #a9a9a9;" border-input">enter patient number for returning patients</div>
-                                                        <input type="text" class="form-control border-input" id="number" name="number" placeholder="e.g. 213">
-                                                    </div>
+                                                <div class="input-group-addon" style="border:1px solid #a9a9a9;" border-input">Patient Number</div>
+                                                    <input type="text" class="form-control border-input" id="number" name="number" placeholder="e.g. 213">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -37,7 +37,6 @@ class User extends Authenticatable
             return true;
         }
             abort(401, 'You are not authorized to perform this action.');
-            return back();
         }
 
     public function hasAnyRole($roles)
