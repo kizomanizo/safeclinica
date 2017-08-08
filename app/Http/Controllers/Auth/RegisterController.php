@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/registration';
 
     /**
      * Create a new controller instance.
@@ -69,5 +69,9 @@ class RegisterController extends Controller
             // 'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        #this mode adds a default role for a new user
+        $user->roles()->attach(App\Http\Models\Role::where('name', 'registration')->first());
+        return $user;
     }
 }

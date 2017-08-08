@@ -33,7 +33,7 @@ class ServicesTableSeeder extends Seeder
         DB::table('services')->insert([
         	'id' => 3,
             'name' => 'Specialist',
-            'cash' => 10000,
+            'cash' => 20000,
             'insurance' => 20000,
             'user' => 'Administrator',
             'created_at' => date('Y-m-d h:m:s'),

@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+Route::resource('users', 'UserController');
+
 Route::get('/registration', 'PatientController@create')->name('registration');
 
 Route::get('/settings', 'HomeController@settings')->name('settings');
