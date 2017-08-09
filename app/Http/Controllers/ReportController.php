@@ -120,7 +120,6 @@ class ReportController extends Controller
 	        'daysinamonth' => $daysinamonth
 	    );
 
-			// print_r($daysinamonth);
         return view('reports/index')->
         	with('services', $services)->
         	with('count', $count)->
@@ -132,7 +131,7 @@ class ReportController extends Controller
 	 */
     public function full()
     {
-    	$patients = Patient::whereMonth('created_at', date('m'))->where('status', 0)->get();
+    	$patients = Patient::whereMonth('patients.created_at', date('m'))->where('patients.status', 0)->get();
     	$services = Service::all();
         $count = Patient::where('status', 1)->count();
         // return $patients;
