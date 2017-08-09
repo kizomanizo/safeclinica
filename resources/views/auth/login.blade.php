@@ -6,7 +6,8 @@
   
   
   
-      <link rel="stylesheet" href="{{ url('css/style.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}">
+      <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}"> -->
 
   
 </head>
@@ -17,7 +18,7 @@
     <form class="login-form" role="form" method="POST" action="{{ route('login') }}">
     {{ csrf_field() }}
       <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-          <div class="col-md-6">
+          <div class="col-lg-8 col-md-8 col-xs-12 col-sm-6">
               <input id="username" type="username" class="form-control" name="username" value="{{ old('username') }}" placeholder="username" required autofocus>
 
               @if ($errors->has('username'))

@@ -135,7 +135,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="card">
                                     <div class="header">
                                         <h4 class="title">Gender Ratio</h4>
@@ -149,7 +149,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="card">
                                     <div class="header">
                                         <h4 class="title">Age Groups</h4>

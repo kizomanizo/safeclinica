@@ -25,14 +25,14 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */    public function index()
     {
-        return view('home');
+        return view('static/home');
     }
 
     public function settings()
     {
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
-        return view('settings')->
+        return view('static/settings')->
             with('services', $services)->
             with('count', $count);
     }

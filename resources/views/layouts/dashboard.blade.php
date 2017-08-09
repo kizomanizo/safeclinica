@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-	<meta charset="utf-8" />
-	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-favicon.png') }}">
-	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon.png') }}">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/favicon.png') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>{{ config('app.name', 'Safefocus') }}</title>
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <title>{{ config('app.name', 'Safefocus') }}</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
     <link href="{{ asset('css/vendors/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/paper/animate.min.css') }}" rel="stylesheet"/>
+    <!-- <link href="{{ asset('css/paper/animate.min.css') }}" rel="stylesheet"/> -->
     <link href="{{ asset('css/paper/paper-dashboard.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/paper/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
@@ -96,7 +96,7 @@
                         <li class="dropdown">
                               <a href="#">
                                     <i class="ti-bell"></i>
-                                    <p class="notification">{{ $count }}</p>
+                                    <p class="notification">{{ count($count) }}</p>
 									<p>Pending</p>
                               </a>
                         </li>
@@ -154,24 +154,19 @@
     </div>
 </div>
 
-
 </body>
 
     <!--   Core JS Files   -->
     <script src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/vendors/app.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/paper/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/paper/paper-dashboard.js') }}" type="text/javascript" ></script>
 
     <!--  Checkbox, Radio & Switch Plugins -->
     <script src="{{ asset('js/paper/bootstrap-checkbox-radio.js') }}"></script>
-
-    <!--  Notifications Plugin    -->
-    <script src="{{ asset('js/paper/bootstrap-notify.js') }}"></script>
 
     <!--  Custom JS scripts for doing various tasks -->
     <script src="{{ asset('js/custom/disable_input.js') }}" ></script>
     <script src="{{ asset('js/custom/removealerts.js') }}"></script>
     <script src="{{ asset('js/custom/add_treatment_field.js') }}" > </script>
-
 
 </html>

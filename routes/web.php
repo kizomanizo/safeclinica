@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PatientController@create')->name('welcome');
 
 Auth::routes();
 
@@ -37,7 +35,7 @@ Route::resource('treatments', 'TreatmentController');
 
 Route::resource('patients', 'PatientController');
 
-Route::get('/test', 'ReportController@test')->name('test');
+Route::get('/tests', 'TestController@index')->name('test');
 
 Route::post('/patient/release', 'PatientController@release')->name('patient_release');
 

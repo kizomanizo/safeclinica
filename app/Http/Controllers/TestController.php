@@ -13,7 +13,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        //
+        // HTML testing blade page
+        return view('tests/index');
     }
 
     /**
