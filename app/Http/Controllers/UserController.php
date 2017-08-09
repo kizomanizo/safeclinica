@@ -45,7 +45,7 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // Check if the loged in user ca access this method
-        $request->user()->authorizeRoles(['administrator', 'registration', 'manager']);
+        $request->user()->authorizeRoles(['administrator', 'manager']);
         // Load the form for adding users
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
