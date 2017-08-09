@@ -349,6 +349,11 @@ class PatientController extends Controller
             with('count', $count);
     }
 
+    /**
+     * [transactions description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function transactions(Request $request)
     {
         # receive arrays...

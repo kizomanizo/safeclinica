@@ -43,7 +43,8 @@
 
                         </tbody>
                     </table>
-                    <a href="{{ url('investigations/create') }}" class="link">Add another investigation</a>
+                    {{ $investigations->links() }}
+                    <p><a href="{{ url('investigations/create') }}" class="link">Add another investigation</a></p>
                     </div>
 
                 </div>

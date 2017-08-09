@@ -43,7 +43,8 @@
 
                         </tbody>
                     </table>
-                    <a href="{{ url('treatments/create') }}" class="link">Add another treatment</a>
+                    {{ $treatments->links() }}
+                    <p><a href="{{ url('treatments/create') }}" class="link">Add another treatment</a></p>
                     </div>
 
                 </div>

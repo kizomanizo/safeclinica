@@ -131,7 +131,7 @@ class ReportController extends Controller
 	 */
     public function full()
     {
-    	$patients = Patient::whereMonth('patients.created_at', date('m'))->where('patients.status', 0)->get();
+    	$patients = Patient::whereMonth('patients.created_at', date('m'))->where('patients.status', 0)->paginate(10);
     	$services = Service::all();
         $count = Patient::where('status', 1)->count();
         // return $patients;

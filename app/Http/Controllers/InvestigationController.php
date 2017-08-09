@@ -24,7 +24,7 @@ class investigationController extends Controller
     public function index()
     {
         //List all available investigations
-        $investigations = Investigation::all();
+        $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
@@ -66,7 +66,7 @@ class investigationController extends Controller
         $investigation->type = $request->type;
         $investigation->user = Auth::user()->name;
         $investigation->save();
-        $investigations = Investigation::all();
+        $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
         return view('investigations/index')->
@@ -126,7 +126,7 @@ class investigationController extends Controller
         $investigation->created_at = $request->created_at;
         $investigation->updated_at = date("Y-m-d H:i:s");
         $investigation->save();
-        $investigations = Investigation::all();
+        $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
         return view('investigations/index')->

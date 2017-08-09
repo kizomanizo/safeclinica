@@ -24,9 +24,7 @@
                                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
                                         <div class="form-group">
                                             <label>Treatment</label>
-                                            <input type="text" class="form-control border-input" name="treatments[]" id="treatments[]" class="form-control border-input" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" pattern="[0-9].{0,}" autocomplete="disabled">
-                                            <label for="response"></label>
-                                            <input type="hidden" name="response" id="response">
+                                            <input type="text" class="form-control border-input" name="treatments[]" id="treatments[]" placeholder="type treatment name for suggestions" autofocus="" list="myTreatments" pattern="[0-9].{0,}" autocomplete="disabled">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
@@ -77,5 +75,5 @@
         </div>
     </div>
 <script type="text/javascript" src="{{ asset('js/vendors/jquery-3.2.1.min.js') }}"></script>
-
 @endsection
+

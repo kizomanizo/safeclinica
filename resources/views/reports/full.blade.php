@@ -71,7 +71,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                        <a href="{{ url('reports') }}" class="link">go back to the summary</a>
+                    {{ $patients->links() }}
+                    <p><a href="{{ url('reports') }}" class="link">go back to the summary</a></p>
             </div>
         </div>
     </div>

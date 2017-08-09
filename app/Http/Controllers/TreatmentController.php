@@ -23,7 +23,7 @@ class treatmentController extends Controller
     public function index()
     {
         //List all available treatments
-        $treatments = Treatment::all();
+        $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
@@ -69,7 +69,7 @@ class treatmentController extends Controller
         $treatment->type = $request->type;
         $treatment->user = Auth::user()->name;
         $treatment->save();
-        $treatments = Treatment::all();
+        $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
@@ -131,7 +131,7 @@ class treatmentController extends Controller
         $treatment->created_at = $request->created_at;
         $treatment->updated_at = date("Y-m-d H:i:s");
         $treatment->save();
-        $treatments = Treatment::all();
+        $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
