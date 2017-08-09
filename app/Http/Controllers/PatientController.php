@@ -98,6 +98,7 @@ class PatientController extends Controller
 
         #register nrew patient
         $patient = new Patient;
+        $patient->casetype = $request->casetype;
         $patient->name = $request->fullname;
         $patient->age = $request->age;
         $patient->sex = $request->sex;
@@ -181,37 +182,27 @@ class PatientController extends Controller
                 $patient_id = $patient->id;
                 $servs = $patient->services()->where('patient_id', $patient_id)->get();
                 $treatments = $patient->treatments()->where('patient_id', $patient_id)->get();
-
-                $investigations = $patient->investigations()->
-                    where('patient_id', $patient_id)->
-                    wherePivot('status', '=', 1)->
-                    get();
-
-                $insurances = $patient->insurances()->
-                    where('patient_id', $patient_id)->
-                    get()->
-                    first();
-
-                if ($insurances->name == 'Cash')
-                {
-                    $sprice = $patient->services()->
-                    where('patient_id', $patient_id)->
-                    sum('cash');
-                }
-                else
-                {
-                    $sprice = $patient->services()->
-                    where('patient_id', $patient_id)->
-                    sum('insurance');
+                $investigations = $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->get();
+                $insurances = $patient->insurances()->where('patient_id', $patient_id)->get()->first();
+                if ($insurances->name == 'Cash') {
+                    if ($patient->casetype == 1) {
+                        $sprice = $patient->services()->where('patient_id', $patient_id)->sum('cash');
+                    } else {
+                        $sprice = $patient->services()->where('patient_id', $patient_id)->sum('cash');
+                        $sprice = $sprice/2;
+                    }
+                } else {
+                    if ($patient->casetype == 1) {
+                        $sprice = $patient->services()->where('patient_id', $patient_id)->sum('insurance');
+                    } else {
+                        $sprice = $patient->services()->where('patient_id', $patient_id)->sum('insurance');
+                        $sprice = $sprice/2;
+                    }
                 }
 
                 $prices = array(
-                    'iprice' =>$patient->investigations()->
-                        where('patient_id', $patient_id)->
-                        sum('price'), 
-                    'tprice' =>$patient->treatments()->
-                        where('patient_id', $patient_id)->
-                        sum('treatment_payment'),
+                    'iprice' =>$patient->investigations()->where('patient_id', $patient_id)->sum('price'), 
+                    'tprice' =>$patient->treatments()->where('patient_id', $patient_id)->sum('treatment_payment'),
                     'sprice' =>$sprice
                     );
 
@@ -269,24 +260,24 @@ class PatientController extends Controller
         $investigations = $request->investigations;
         $service = $request->service;
         $tablets = $request->tablets;
+
+        #Receive the billing arrays
         $treatmentErrors = array_filter($treatments);
         $investigationErrors = array_filter($investigations);
         $tablets = array_filter($tablets);
 
         if (!empty($service)) {
         foreach ($services as $key => $n) {
-        $patient_service = New Patient_service;
-        $patient_service->patient_id = $patient->id;
-        $patient_service->service_id = $services[$key];
-        $patient_service->user = Auth::user()->name;
-        $patient_service->status = 1;
-        $patient_service->save();
+            $patient_service = New Patient_service;
+            $patient_service->patient_id = $patient->id;
+            $patient_service->service_id = $services[$key];
+            $patient_service->user = Auth::user()->name;
+            $patient_service->status = 1;
+            $patient_service->save();
         }}
 
-                
-        foreach ($treatments as $key => $n) {
         if (!empty($treatmentErrors)) {
-            // The validation of the form
+        foreach ($treatments as $key => $n) {
             $patient_treatment = New Patient_treatment;
             $treatment_payment = Treatment::where('id', $treatments[$key])->first();
             $treatment_payment = $treatment_payment->price * $tablets[$key];
@@ -313,49 +304,34 @@ class PatientController extends Controller
         $patient = Patient::find($patient_id);
         $count = Patient::where('status', 1)->count();
 
-        $servs = $patient->services()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            get();
+        #list all costs incurred by the patient
+        $servs = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->get();
+        $treatments = $patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->get();
+        $investigations = $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->get();
+        $insurances = $patient->insurances()->where('patient_id', $patient_id)->get()->first();
 
-        $treatments = $patient->treatments()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            get();
-
-        $investigations = $patient->
-            investigations()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            get();
-
-        $insurances = $patient->
-            insurances()->
-            where('patient_id', $patient_id)->
-            get()->first();
-
+        #Services get a dual treatments as patients can pay
+        #by insurance or by cash with different prices
         if ($insurances->name == 'Cash') {
-            $sprice = $patient->services()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            sum('cash');
-                }
-        else {
-            $sprice = $patient->services()->
-            where('patient_id', $patient_id)->
-            wherePivot('status', '=', 1)->
-            sum('insurance');
+            if ($patient->casetype == 1) {
+                $sprice = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('cash');
+            } else {
+                $sprice = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('cash');
+                $sprice = ($sprice)/2;
             }
-
+        } else {
+            if ($patient->casetype == 1) {
+                $sprice = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('insurance');
+            } else {
+                $sprice = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('insurance');
+                $sprice = ($sprice)/2;
+            }
+        }
+        
+        #All other charges, services will be added in as sprices
         $prices = array(
-            'iprice' => $patient->investigations()->
-                where('patient_id', $patient_id)->
-                wherePivot('status', '=', 1)->
-                sum('price'), 
-            'tprice' => $patient->treatments()->
-                where('patient_id', $patient_id)->
-                wherePivot('status', '=', 1)->
-                sum('treatment_payment'),
+            'iprice' => $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('price'), 
+            'tprice' => $patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->sum('treatment_payment'),
             'sprice' => $sprice
             );
 
@@ -365,7 +341,6 @@ class PatientController extends Controller
         Patient_investigation::where('patient_id', $patient_id)->update(['status' => 0]);
 
         #Return the page that lists the summary of costs incurred
-        // return $patient;
         return view('patients/index')->
             with('patient', $patient)->
             with('services', $services)->
@@ -383,6 +358,8 @@ class PatientController extends Controller
         $patient = $request->patient;
         $patient = Patient::where('id', $patient)->first();
         $insurance = $patient->insurances->first();
+
+        #Ignore empty arrays
         $servicesArray = array_filter($services);
         if(!empty($treatments)) {
         $treatmentsArray = array_filter($treatments);
@@ -404,15 +381,21 @@ class PatientController extends Controller
                 $transaction->type_id = $servicesArray[$service];
                 if ($insurance->name == 'Cash')
                     {
-                        $price = Service::where('id', $servicesArray[$service])->
-                            get()->first();
-                        $price = $price->cash;
+                        $price = Service::where('id', $servicesArray[$service])->get()->first();
+                            if ($patient->casetype == 1) {
+                                $price = $price->cash;
+                            } else {
+                                $price = ($price->cash)/2;
+                            }
                     }
                 else
                     {
-                        $price = Service::where('id', $servicesArray[$service])->
-                            get()->first();
-                        $price = $price->insurance;
+                        $price = Service::where('id', $servicesArray[$service])->get()->first();
+                        if ($patient->casetype == 1) {
+                                $price = $price->insurance;
+                            } else {
+                                $price = ($price->insurance)/2;
+                            }
                     }
                 $transaction->type_price = $price;
                 $transaction->user = Auth::user()->name;
@@ -488,11 +471,20 @@ class PatientController extends Controller
         $investigations = $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
         $insurances = $patient->insurances()->where('patient_id', $patient_id)->get()->first();
         if ($insurances->name == 'Cash') {
-            $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('cash');
-                }
-        else {
-            $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('insurance');
+            if ($patient->casetype == 1) {
+                $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('cash');
+            } else {
+                $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('cash');
+                $sprice = $sprice/2;
             }
+        } else {
+            if ($patient->casetype == 1) {
+                $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('insurance');
+            } else {
+                $sprice = $patient->services()->where('patient_id', $patient->id)->wherePivot('status', '=', 0)->sum('insurance');
+                $sprice = $sprice/2;
+            }
+        }
         $prices = array(
             'iprice' =>$patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->sum('price'), 
             'tprice' =>$patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->sum('treatment_payment'),
@@ -506,7 +498,6 @@ class PatientController extends Controller
             with('insurances', $insurances)->
             with('prices', $prices)->
             with('count', $count);
-        return $investigations;
     }
 
     public function paycredit(Request $request)

@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                             @php ($total = 0)
-                            @php ($total += $prices['sprice'] + $prices['tprice'] + $prices['iprice'])
+                                @php ($total += $prices['sprice'] + $prices['tprice'] + $prices['iprice'])
                                 <h4 class="text-primary">{{ number_format($prices['sprice'] + $prices['tprice'] + $prices['iprice']) }}</h4>
                                 @foreach($patient->patient_payments as $payment)
                                     <h4 class="text-primary">{{ number_format($payment->paid) }}</h4>
@@ -57,21 +57,37 @@
                         <strong class="courier">Registration</strong>
                             @if($insurances->name == 'Cash')
                                 @foreach($patient->services as $serv)
+                                @if ($patient->casetype == 1)
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-6 courier">{{ $serv->name }}</div>
                                     <div class="col-md-6 col-sm-6 col-xs-6 text-right courier">{{ number_format($serv->cash) }}</div>
-                                </div>    
+                                </div>
+                                @else
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 courier">{{ $serv->name }}</div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right courier">{{ number_format(($serv->cash)/2) }}</div>
+                                </div>
+                                @endif
                                 @endforeach
                             @else
                                 @foreach($patient->services as $serv)
+                                @if ($patient->casetype == 1)
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-6 courier">{{ $serv->name }}</div>
                                     <div class="col-md-6 col-sm-6 col-xs-6 text-right courier">{{ number_format($serv->insurance) }}</div>
-                                </div>    
+                                </div>
+                                @else
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6 courier">{{ $serv->name }}</div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right courier">{{ number_format(($serv->insurance)/2) }}</div>
+                                </div>
+                                @endif
                                 @endforeach
                             @endif
                             <div class="col-md-6 col-sm-6 col-xs-6 courier text-muted"><em>Subtotal</em></div>
-                            <div class="col-md-6 col-sm-6 col-xs-6 text-right courier text-muted"><em>{{ number_format($prices['sprice']) }}</em></div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right courier text-muted"><em>
+                                {{ number_format($prices['sprice']) }}
+                            </em></div>
                         <hr>
 
                         @if(count($patient->treatments) > 0)

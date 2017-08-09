@@ -36,12 +36,12 @@
                                 </td>
                                 <td>
                                     @foreach($patient->investigations as $investigation)
-                                        {{ $investigation->name }}<br>
+                                        {{ ucfirst(strToLower($investigation->name)) }}<br>
                                     @endforeach
                                 </td>
                                 <td>
                                     @foreach($patient->treatments as $treatment)
-                                        {{ $treatment->name }}<br>
+                                        {{ ucfirst(strToLower($treatment->name)) }}<br>
                                     @endforeach
                                 </td>
                                 <td class="text-muted">

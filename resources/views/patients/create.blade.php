@@ -28,12 +28,11 @@
                                     <div class="row">
                                         <div class="col-md-2 col-lg-2">
                                             <div class="form-group">
-                                                <div class="radio radio-inline">
-                                                    <label>
-                                                        Return
-                                                        <input type="radio" name="returning" id="returning" value="1" class="form-control radio-inline" />
-                                                    </label>
-                                                </div>
+                                                <label for="casetype">Type</label>
+                                                <select class="form-control border-input" name="casetype" id="casetype">
+                                                    <option value="1" selected="">New</option>
+                                                    <option value="0">Return</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-10 col-lg-10">
@@ -41,7 +40,7 @@
                                                 <label for="number">Search return patient number</label>
                                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                 <div class="input-group-addon" style="border:1px solid #a9a9a9;" border-input">Patient Number</div>
-                                                    <input type="text" class="form-control border-input" id="number" name="number" placeholder="e.g. 213">
+                                                    <input type="text" class="form-control border-input" id="number" name="number" placeholder="e.g. 213" disabled="">
                                                 </div>
                                             </div>
                                         </div>
