@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom/loader.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/custom/bar.css') }}">
   </head>
 
   <body>
@@ -48,13 +48,17 @@
                                             <div class='list-group col-md-8 col-md-offset-2'>
                                                 <a href='createdatabase' class='list-group-item text-center disabled'>
                                                     <span><s>1- Create DB</s></span>
-                                                    <i class='fa fa-check text-success'></i></a>
-                                                <a href='migratedatabase' id='migrateLink' class='list-group-item text-center'>
-                                                    2- Make Tables
+                                                    <i class='fa fa-check text-success'></i>
+                                                </a>
+                                                <a href='migratedatabase' class='list-group-item text-center' id='migrateLink'>
+                                                    <span id='migrateDatabase'>2- Migrate Database</span>
+                                                    <i id='faCheckMigrate' class=''></i>
                                                 </a>
                                                 <a href='seeddatabase' class='list-group-item text-center'>
                                                     3- Seed Database
                                                 </a>
+                                                <br>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
                                             </div>
                                             "; } else {
                                         echo "
@@ -63,16 +67,16 @@
                                                     <span><s>1- Create DB</s></span>
                                                     <i class='fa fa-check text-success'></i>
                                                 </a>
-                                                <a href='migratedatabase' id='migrateLink' class='list-group-item text-center disabled'>
-                                                    <span><s>2- Make Tables</s></span>
+                                                <a href='migratedatabase' class='list-group-item text-center disabled'>
+                                                    <span><s>2- Migrate Database</s></span>
                                                     <i class='fa fa-check text-success'></i>
                                                 </a>
-                                                <a href='seeddatabase' id='seedLink' class='list-group-item text-center'>
+                                                <a href='seeddatabase' class='list-group-item text-center' id='seedLink'>
                                                     <span id='seedDatabase'>3- Seed Database</span>
-                                                    <i id='faCheck' class=''></i>
+                                                    <i id='faCheckSeed' class=''></i></a>
                                                 </a>
                                                 <br>
-                                                <div id='loader' class='loader centered' style='display: none;'></div>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
                                             </div>
                                         ";}
                                     }
@@ -80,17 +84,19 @@
                                     {
                                         echo " 
                                             <div class='list-group col-md-8 col-md-offset-2'>
-                                                <a href='createdatabase' id='createLink' class='list-group-item text-center disabled'>
-                                                    <span><s>1- Create DB</s></span>
-                                                    <i class='fa fa-check text-success'></i>
+                                                <a href='createdatabase' id='createLink' class='list-group-item text-center'>
+                                                    <span id='createDatabase'>1- Create DB</span>
+                                                    <i id='faCheckCreate' class=''></i>
                                                 </a>
-                                                <a href='migratedatabase' class='list-group-item text-center disabled'>
-                                                    <span><s>2- Make Tables</s></span>
-                                                    <i class='fa fa-check text-success'></i>
+                                                <a href='migratedatabase' class='list-group-item text-center'>
+                                                    2- Migrate Database
                                                 </a>
                                                 <a href='seeddatabase' class='list-group-item text-center'>
                                                     3- Seed Database
                                                 </a>
+                                                <br>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
+
                                             </div>
                                         ";}
                                     $stmt->close();
@@ -116,7 +122,7 @@
             e.preventDefault();
             document.getElementById('createLink').className += ' disabled';
             document.getElementById("faCheckCreate").className += "fa fa-check";
-            document.getElementById('createDatabase').innerHTML = '<s>Create DB</s>';
+            document.getElementById('createDatabase').innerHTML = '<s>1- Create DB</s>';
             document.getElementById('loader').style.display= 'block';
             location.href = $(this).attr('href');
         }),
@@ -125,7 +131,7 @@
             e.preventDefault();
             document.getElementById('migrateLink').className += ' disabled';
             document.getElementById("faCheckMigrate").className += "fa fa-check";
-            document.getElementById('migrateDatabase').innerHTML = '<s>Migrate Tables</s>';
+            document.getElementById('migrateDatabase').innerHTML = '<s>2- Migrate database</s>';
             document.getElementById('loader').style.display= 'block';
             location.href = $(this).attr('href');
         }),
@@ -134,7 +140,7 @@
             e.preventDefault();
             document.getElementById('seedLink').className += ' disabled';
             document.getElementById("faCheckSeed").className += "fa fa-check";
-            document.getElementById('seedDatabase').innerHTML = '<s>Seed Database</s>';
+            document.getElementById('seedDatabase').innerHTML = '<s>3- Seed Database</s>';
             document.getElementById('loader').style.display= 'block';
             location.href = $(this).attr('href');
         })
