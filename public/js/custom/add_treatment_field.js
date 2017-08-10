@@ -2,7 +2,6 @@ $(document).ready(function() {
     var max_fields      = 10;
     var wrapper         = $(".treatmentArea");
     var add_button      = $(".add_field");
-  
     var x = 1;
     $(add_button).click(function(e){
         e.preventDefault();
@@ -10,10 +9,10 @@ $(document).ready(function() {
             x++;
             $(wrapper).append('<div class="row"><div class=" col-lg-9 col-md-9 col-sm-8 col-xs-8"><div class="form-group"><input type="text" class="form-control border-input" required="" name="treatments[]" id="treatments[]" list="myTreatments"></div></div><div class="col-md-3 col-lg-3 col-sm-4 col-xs-4"><div class="form-group"><input type="text" class="form-control border-input"  required="" name="tablets[]" id="tablets[]" ></div></div></div></div><a href="#" class="delete">Delete</a><br></div>'); //add input box
         }
-  else
-  {
-  alert('You have reached the maximum number of treatments')
-  }
+        else
+        {
+            alert('You have reached the maximum number of treatments')
+        }
     });
   
     $(wrapper).on("click",".delete", function(e){

@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        /**
+         * Custom command for creating the DB in Artisan
+         */
     ];
 
     /**
@@ -37,4 +39,5 @@ class Kernel extends ConsoleKernel
     {
         require base_path('routes/console.php');
     }
+
 }

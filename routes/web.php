@@ -10,12 +10,60 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'PatientController@create')->name('welcome');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function() {
+	return redirect()->route('welcome');
+});
+
+Route::get('welcome', function() {
+
+	$db = new mysqli('localhost', 'root', 'safefocus');
+	$database="safefocus";
+	$query="SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=?";
+	$stmt = $db->prepare($query);
+	$stmt->bind_param('s',$database);
+	$stmt->execute();
+	$stmt->bind_result($data);
+	if($stmt->fetch())
+	{
+	    if (!Schema::hasTable('migrations')) {
+	    	return view('static/welcome');
+	    } else {
+	    	if (empty(App\Http\Models\Region::get()->first())) {
+	    		return view('static/welcome');
+	    	}
+	    	else {
+	    		return redirect('login');
+	    	}
+	    }
+	}
+	else
+	{
+		return view('static/welcome');
+	}
+	$stmt->close();
+
+
+})->name('welcome');
+
+Route::get('createdatabase', function () {
+    $pdo = new PDO('mysql:host=localhost;dbname=mysql;charset=utf8mb4', 'root', 'safefocus');
+    $pdo->exec( 'create database safefocus;' );
+    return redirect('welcome');
+});
+
+Route::get('migratedatabase', function () {
+    Artisan::call('migrate:refresh');
+    return redirect('welcome');
+});
+
+Route::get('seeddatabase', function () {
+    Artisan::call('db:seed');
+    	return redirect('registration');
+});
+
+Route::get('/home', 'HomeController@welcome')->name('home');
 
 Auth::routes();
 

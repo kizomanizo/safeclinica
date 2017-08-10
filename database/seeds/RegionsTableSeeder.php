@@ -15,7 +15,7 @@ class RegionsTableSeeder extends Seeder
         // Seed this table from an SQL file
         Eloquent::unguard();
         DB::disableQueryLog();
-        $path = 'database/seeds/sql/pwani.sql';
+        $path = asset('sql/pwani.sql');
         DB::unprepared(file_get_contents($path));
         $this->command->info('Regions table seeded!');
     }

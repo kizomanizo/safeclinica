@@ -19,6 +19,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function welcome()
+    {
+        return redirect()->route('welcome');
+    }
+
     /**
      * Show the application dashboard.
      *

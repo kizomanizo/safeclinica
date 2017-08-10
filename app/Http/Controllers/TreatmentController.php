@@ -131,7 +131,7 @@ class treatmentController extends Controller
         $treatment->created_at = $request->created_at;
         $treatment->updated_at = date("Y-m-d H:i:s");
         $treatment->save();
-        $treatments = Treatment::paginate(10);
+        $treatments = Treatment::paginate(12);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         return view('treatments/index')->
