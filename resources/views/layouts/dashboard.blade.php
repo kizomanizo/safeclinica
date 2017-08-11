@@ -43,8 +43,9 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="url('patients/create')" class="simple-text">
-                    {{ config('app.name', 'SafeClinic') }}
+                <img width="100%" src="https://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png" alt="{{ config('app.name', 'SafeClinic') }}">
                 </a>
+
             </div>
 
             <ul class="nav">

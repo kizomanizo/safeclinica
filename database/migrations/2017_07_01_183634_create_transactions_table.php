@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('patient_transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->string('type');
             $table->integer('type_id');
             $table->integer('type_price');

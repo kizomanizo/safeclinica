@@ -8,6 +8,15 @@
                 <h4 class="text-muted">Select settings to configure</h4>
             </div>
             <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                 <div class="row">
                     <div class="col-md-6">
                         <p><i class="fa fa-medkit"></i> Services:</p>
@@ -51,7 +60,14 @@
                         </ul>
                     </div>
                     <div class="col-md-6">
-                    <!-- Some content -->
+                    <!-- Logo uploading area -->
+                    <p><i class="fa fa-file-image-o"></i> Upload Company Logo</p>
+                    <form role="form" method="POST" action="{{ url('logo/upload') }}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                        <input type="file" name="logo" id="logo" class="form-control border-input">
+                        <br>
+                        <button type="submit" class="btn btn-warning">Upload</button>
+                    </form>
                     </div>
                 </div>
             </div>

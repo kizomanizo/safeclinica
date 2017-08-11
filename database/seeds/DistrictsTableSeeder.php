@@ -13,7 +13,7 @@ class DistrictsTableSeeder extends Seeder
     {
         // Seed this table from an SQL file
         DB::disableQueryLog();
-        $path = asset('sql/wilaya.sql');
+        $path = asset('sql/districts.sql');
         DB::unprepared(file_get_contents($path));
         $this->command->info('Districts table seeded!');
     }

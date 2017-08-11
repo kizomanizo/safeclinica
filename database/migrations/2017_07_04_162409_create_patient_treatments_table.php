@@ -17,7 +17,7 @@ class CreatePatientTreatmentsTable extends Migration
         Schema::create('patient_treatments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->integer('treatment_id')->unsigned();
             $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->integer('treatment_tablet');

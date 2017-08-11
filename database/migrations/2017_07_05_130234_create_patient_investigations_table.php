@@ -17,7 +17,7 @@ class CreatePatientInvestigationsTable extends Migration
         Schema::create('patient_investigations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->integer('investigation_id')->unsigned();
             $table->foreign('investigation_id')->references('id')->on('investigations');
             $table->tinyInteger('status');

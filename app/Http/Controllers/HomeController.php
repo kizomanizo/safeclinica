@@ -51,4 +51,15 @@ class HomeController extends Controller
             with('count', $count);
     }
 
+    public function logo(Request $request)
+    {
+        // Validate the logo if it is an image and if it fits the size
+        $this->validate($request, [
+            'logo' => 'required|image|dimensions:max=600,max_height=200',
+        ]);
+
+        $logopath = $request->file('logo')->store('logos');
+
+        return $logopath;
+    }
 }
