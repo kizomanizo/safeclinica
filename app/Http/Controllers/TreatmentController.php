@@ -76,10 +76,7 @@ class treatmentController extends Controller
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         $logo = File::where('name', 'logo')->first();
-        return view('treatments/index')->
-            with('treatments', $treatments)->
-            with('services', $services)->
-            with('count', $count)->with('logo', $logo);
+        return redirect('treatments');
     }
 
     /**
@@ -140,10 +137,7 @@ class treatmentController extends Controller
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         $logo = File::where('name', 'logo')->first();
-        return view('treatments/index')->
-            with('treatments', $treatments)->
-            with('services', $services)->
-            with('count', $count)->with('logo', $logo);
+        return redirect ('treatments');
     }
 
     /**
@@ -156,13 +150,10 @@ class treatmentController extends Controller
     {
         //Deletes data from the Database BEWARE OF THIS DOG
         $treatment = Treatment::destroy($treatment);
-        $treatments = Treatment::all();
+        $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
         $logo = File::where('name', 'logo')->first();
-        return view('treatments/index')->
-            with('treatments', $treatments)->
-            with('services', $services)->
-            with('count', $count)->with('logo', $logo);
+        return redirect('treatments');
     }
 }

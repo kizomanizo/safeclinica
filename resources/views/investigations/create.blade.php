@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="type">Investigation Type</label>
-                                <input type="text" type="type" id="type" class="form-control border-input"  placeholder="e.g. Serology" required="">
+                                <input type="text" name="type" id="type" class="form-control border-input"  placeholder="e.g. Serology" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
