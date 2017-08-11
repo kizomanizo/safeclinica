@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Models\Insurance;
 use App\Http\Models\Service;
 use App\Http\Models\Patient;
+use App\Http\Models\File;
 
 use Illuminate\Http\Request;
 
@@ -37,9 +38,11 @@ class HomeController extends Controller
     {
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('static/settings')->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->
+            with('logo', $logo);
     }
 
     public function reports()
@@ -57,9 +60,19 @@ class HomeController extends Controller
         $this->validate($request, [
             'logo' => 'required|image|dimensions:max=600,max_height=200',
         ]);
+        $name = 'logo';
+        $oldname = $request->file('logo')->getClientOriginalName();
+        $newname = $request->file('logo')->store('logos');
 
-        $logopath = $request->file('logo')->store('logos');
+        // Send the file location and old name to the DB
+        $file = new File;
+        $file->name = 'logo';
+        $file->oldname = $oldname;
+        $file->newname = $newname;
+        $file->user = Auth::user()->name;
+        $file->save();
 
-        return $logopath;
+        // Load patients create page
+        return redirect('patients/create');
     }
 }

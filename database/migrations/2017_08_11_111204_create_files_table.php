@@ -13,7 +13,15 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        //
+        // Create a table for storing file names
+        Schema::create('files', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('oldname')->nullable('unknown');
+            $table->integer('newname');
+            $table->string('user');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,7 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        //
+        // Drop the table
+        Schema::dropIfExists('files');
     }
 }
