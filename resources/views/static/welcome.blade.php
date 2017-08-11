@@ -58,7 +58,7 @@
                                                     3- Seed Database
                                                 </a>
                                                 <br>
-                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-white'>Please wait...</span></div>
                                             </div>
                                             "; } else {
                                         echo "
@@ -76,7 +76,7 @@
                                                     <i id='faCheckSeed' class=''></i></a>
                                                 </a>
                                                 <br>
-                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-white'>Please wait...</span></div>
                                             </div>
                                         ";}
                                     }
@@ -95,7 +95,7 @@
                                                     3- Seed Database
                                                 </a>
                                                 <br>
-                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-danger'>Please wait...</span></div>
+                                                <div id='loader' class='loader centered text-center' style='display: none;'><span class='text-white'>Please wait...</span></div>
 
                                             </div>
                                         ";}
