@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\Patient;
 use App\Http\Models\Insurance;
@@ -50,6 +51,7 @@ class PatientController extends Controller
         $insurances = Insurance::All('id', 'name');
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $location = array(
             'regions' => Region::All(),
             'districts' => District::All()
@@ -59,13 +61,13 @@ class PatientController extends Controller
             return view('patients/create')->
                 with('insurances', $insurances)->
                 with('services', $services)->
-                with('count', $count)->
+                with('count', $count)->with('logo', $logo)->
                 with('location', $location);
         }
         else {
             return view('/settings')->
                 with('services', $services)->
-                with('count', $count);
+                with('count', $count)->with('logo', $logo);
         }
     }
 
@@ -146,11 +148,12 @@ class PatientController extends Controller
         $insurances = Insurance::All();
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $registered = Patient::where('id', $patient->id)->first();
         return view('patients/create')->
             with('insurances', $insurances)->
             with('services', $services)->
-            with('count', $count)->
+            with('count', $count)->with('logo', $logo)->
             with('registered', $registered)->
             with('location', $this->create()->location);
     }
@@ -166,6 +169,7 @@ class PatientController extends Controller
         // List the page for serving a specific client.
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $patient_status = Patient_service::where('patient_id', $patient->id)->first();
         $data = array(
             'services' => Service::All('id', 'name'),
@@ -175,7 +179,7 @@ class PatientController extends Controller
         );
         if($patient_status->status == 1)
             {
-                return view('patients/show')->with('services', $services)->with('data', $data)->with('count', $count);
+                return view('patients/show')->with('services', $services)->with('data', $data)->with('count', $count)->with('logo', $logo);
             }
         else
             {
@@ -211,7 +215,7 @@ class PatientController extends Controller
                     with('services', $services)->
                     with('insurances', $insurances)->
                     with('prices', $prices)->
-                    with('count', $count);
+                    with('count', $count)->with('logo', $logo);
 
                 // return $iprice;
             }
@@ -303,6 +307,7 @@ class PatientController extends Controller
         $services = Service::All('name', 'id');
         $patient = Patient::find($patient_id);
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
 
         #list all costs incurred by the patient
         $servs = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 1)->get();
@@ -346,7 +351,7 @@ class PatientController extends Controller
             with('services', $services)->
             with('insurances', $insurances)->
             with('prices', $prices)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -471,6 +476,7 @@ class PatientController extends Controller
         // $patient = Patient::find($patient)->first();
         $patient_id = $patient->id;
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $servs = $patient->services()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
         $treatments = $patient->treatments()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
         $investigations = $patient->investigations()->where('patient_id', $patient_id)->wherePivot('status', '=', 0)->get();
@@ -502,7 +508,7 @@ class PatientController extends Controller
             with('services', $services)->
             with('insurances', $insurances)->
             with('prices', $prices)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     public function paycredit(Request $request)
@@ -523,9 +529,10 @@ class PatientController extends Controller
         $patients = Patient::where('status', 0)->with('district')->with('services')->with('transactions')->get();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('reports/full')->
             with('services', $services)->
-            with('count', $count)->
+            with('count', $count)->with('logo', $logo)->
             with('patients', $patients);
     }
 }

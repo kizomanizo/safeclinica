@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -25,6 +26,7 @@ class ReportController extends Controller
     {
     	$services = Service::all();
         $count = Patient::where('status', 1)->count();
+		$logo = File::where('name', 'logo')->first();
         $transactions = Patient_transaction::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->sum('type_price');
         $payments = Patient_payment::whereYear('created_at', date('Y'))->
 	        whereMonth('created_at', date('m'))->
@@ -122,7 +124,7 @@ class ReportController extends Controller
 
         return view('reports/index')->
         	with('services', $services)->
-        	with('count', $count)->
+        	with('count', $count)->with('logo', $logo)->
         	with('statistics', $statistics);
     }
 	/**
@@ -134,10 +136,11 @@ class ReportController extends Controller
     	$patients = Patient::whereMonth('patients.created_at', date('m'))->where('patients.status', 0)->paginate(10);
     	$services = Service::all();
         $count = Patient::where('status', 1)->count();
+		$logo = File::where('name', 'logo')->first();
         // return $patients;
         return view('reports/full')->
         	with('services', $services)->
-        	with('count', $count)->
+        	with('count', $count)->with('logo', $logo)->
         	with('patients', $patients);
 
     }

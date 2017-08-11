@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\Investigation;
 use App\Http\Models\Service;
@@ -27,9 +28,10 @@ class investigationController extends Controller
         $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/index')->
         with('investigations', $investigations)->
-        with('services', $services)->with('count', $count);
+        with('services', $services)->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -41,9 +43,10 @@ class investigationController extends Controller
     {
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/create')->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -69,10 +72,11 @@ class investigationController extends Controller
         $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -98,9 +102,10 @@ class investigationController extends Controller
         $investigation = Investigation::find($investigation);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/edit')->
         with('investigation', $investigation)->
-        with('services', $services)->with('count', $count);
+        with('services', $services)->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -129,10 +134,11 @@ class investigationController extends Controller
         $investigations = Investigation::paginate(10);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -148,9 +154,10 @@ class investigationController extends Controller
         $investigations = Investigation::all();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('investigations/index')->
         with('investigations', $investigations)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 }

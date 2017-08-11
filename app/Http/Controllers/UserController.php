@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\User;
 use App\Http\Models\Service;
@@ -28,11 +29,12 @@ class UserController extends Controller
     {
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $roles = Role::all('id', 'name');
         $users = User::all();
         return view('users/index')->
                 with('services', $services)->
-                with('count', $count)->
+                with('count', $count)->with('logo', $logo)->
                 with('roles', $roles)->
                 with('users', $users);
     }
@@ -49,10 +51,11 @@ class UserController extends Controller
         // Load the form for adding users
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $roles = Role::all('id', 'name');
         return view('users/create')->
                 with('services', $services)->
-                with('count', $count)->
+                with('count', $count)->with('logo', $logo)->
                 with('roles', $roles);
     }
 
@@ -86,11 +89,12 @@ class UserController extends Controller
 
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $roles = Role::all('id', 'name');
         $users = User::all();
         return view('users/index')->
                 with('services', $services)->
-                with('count', $count)->
+                with('count', $count)->with('logo', $logo)->
                 with('roles', $roles)->
                 with('users', $users);
 
@@ -145,11 +149,12 @@ class UserController extends Controller
         $user = User::destroy($user);
         $services = Service::All('id', 'name');
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $roles = Role::all('id', 'name');
         $users = User::all();
         return view('users/index')->
                 with('services', $services)->
-                with('count', $count)->
+                with('count', $count)->with('logo', $logo)->
                 with('roles', $roles)->
                 with('users', $users);
     }

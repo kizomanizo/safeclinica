@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\Treatment;
 use App\Http\Models\Service;
@@ -26,10 +27,11 @@ class treatmentController extends Controller
         $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -41,9 +43,10 @@ class treatmentController extends Controller
     {
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/create')->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -72,10 +75,11 @@ class treatmentController extends Controller
         $treatments = Treatment::paginate(10);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -101,10 +105,11 @@ class treatmentController extends Controller
         $treatment = Treatment::find($treatment);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/edit')->
             with('treatment', $treatment)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -134,10 +139,11 @@ class treatmentController extends Controller
         $treatments = Treatment::paginate(12);
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -153,9 +159,10 @@ class treatmentController extends Controller
         $treatments = Treatment::all();
         $services = Service::All();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('treatments/index')->
             with('treatments', $treatments)->
             with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 }

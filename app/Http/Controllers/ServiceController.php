@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\Service;
 use App\Http\Models\Patient;
@@ -26,7 +27,8 @@ class ServiceController extends Controller
         //List all available services
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
-        return view('services/index')->with('services', $services)->with('count', $count);
+        $logo = File::where('name', 'logo')->first();
+        return view('services/index')->with('services', $services)->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -38,7 +40,8 @@ class ServiceController extends Controller
     {
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
-        return view('services/create')->with('services', $services)->with('count', $count);
+        $logo = File::where('name', 'logo')->first();
+        return view('services/create')->with('services', $services)->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -58,13 +61,14 @@ class ServiceController extends Controller
         // The service is valid, store in database
         $service = new Service;
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $service->name = $request->name;
         $service->cash = $request->cash;
         $service->insurance = $request->insurance;
         $service->user = Auth::user()->name;
         $service->save();
         $services = Service::all();
-        return view('services/index')->with('services', $services)->with('count', $count);
+        return view('services/index')->with('services', $services)->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -77,6 +81,7 @@ class ServiceController extends Controller
     {
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $service = Service::find($service);
         $id = $service->id;
         $patients = $service
@@ -88,7 +93,7 @@ class ServiceController extends Controller
             ->with('services', $services)
             ->with('patients', $patients)
             ->with('service', $service)
-            ->with('count', $count);
+            ->with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -102,11 +107,12 @@ class ServiceController extends Controller
         //the form for editing available services ilishaundwa ile
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         $service = Service::find($service);
         return view('services/edit')
             ->with('service', $service)
             ->with('services', $services)->
-            with('count', $count);
+            with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -135,9 +141,10 @@ class ServiceController extends Controller
         $service->save();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('services/index')->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -152,8 +159,9 @@ class ServiceController extends Controller
         $service = Service::destroy($service);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('services/index')->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 }

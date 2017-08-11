@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Models\File;
 
 use App\Http\Models\Insurance;
 use App\Http\Models\Service;
@@ -28,10 +29,11 @@ class InsuranceController extends Controller
         $insurances = Insurance::all();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -44,9 +46,10 @@ class InsuranceController extends Controller
         //Load the adding page
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/create')->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -69,10 +72,11 @@ class InsuranceController extends Controller
         $insurances = Insurance::all();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -98,9 +102,10 @@ class InsuranceController extends Controller
         $insurance = Insurance::find($insurance);
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/edit')->with('insurance', $insurance)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -126,10 +131,11 @@ class InsuranceController extends Controller
         $insurances = Insurance::all();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 
     /**
@@ -141,13 +147,14 @@ class InsuranceController extends Controller
     public function destroy($insurance)
     {
         //Deletes data from the Database BEWARE OF THIS DOG
-        $insurance = insurance::destroy($insurance);
-        $insurances = insurance::all();
+        $insurance = Insurance::destroy($insurance);
+        $insurances = Insurance::all();
         $services = Service::all();
         $count = Patient::where('status', 1)->count();
+        $logo = File::where('name', 'logo')->first();
         return view('insurances/index')->
         with('insurances', $insurances)->
         with('services', $services)->
-        with('count', $count);
+        with('count', $count)->with('logo', $logo);
     }
 }

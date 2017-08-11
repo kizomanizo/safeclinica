@@ -41,9 +41,9 @@
     -->
 
         <div class="sidebar-wrapper">
-            <div class="logo">
+            <div class="logo" @if(!empty($logo)) style="background-image: url('{{ asset($logo->newname) }}'); background-size: contain; background-repeat: no-repeat; background-position: center;" @endif >
                 <a href="url('patients/create')" class="simple-text">
-                <img width="100%" src="https://res.cloudinary.com/candidbusiness/image/upload/v1455406304/dispute-bills-chicago.png" alt="{{ config('app.name', 'SafeClinic') }}">
+                {{ config('app.name', 'SafeClinic') }}
                 </a>
 
             </div>
