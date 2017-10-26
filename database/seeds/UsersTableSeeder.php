@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // $user = factory(App\Http\Models\User::class, 3)->create();
-        $role_administrator = Role::where('name', 'administrator')->first();
+      $role_administrator = Role::where('name', 'administrator')->first();
 	    $role_registration  = Role::where('name', 'registration')->first();
 	    $role_doctor = Role::where('name', 'doctor')->first();
 	    $role_laboratory  = Role::where('name', 'laboratory')->first();

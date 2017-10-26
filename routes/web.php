@@ -18,7 +18,7 @@ Route::get('/', function() {
 
 Route::get('welcome', function() {
 
-	$db = new mysqli('localhost', 'root', 'safefocus');
+	$db = new mysqli('localhost', 'root','', 'safefocus');
 	$database="safefocus";
 	$query="SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=?";
 	$stmt = $db->prepare($query);
@@ -49,7 +49,7 @@ Route::get('welcome', function() {
 
 Route::get('createdatabase', function () {
     $pdo = new PDO('mysql:host=localhost;dbname=mysql;charset=utf8mb4', 'root', 'safefocus');
-    $pdo->exec( 'create database safefocus;' );
+    $pdo->exec( 'create database safefocus;');
     return redirect('welcome');
 });
 
@@ -59,7 +59,7 @@ Route::get('migratedatabase', function () {
 });
 
 Route::get('seeddatabase', function () {
-    Artisan::call('db:seed');
+      Artisan::call('db:seed');
     	return redirect('registration');
 });
 
