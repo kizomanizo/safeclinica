@@ -14,13 +14,6 @@ We have also set it for scalling up, it can also be deployed in a setting where 
 
 ## Installing SafeClinica
 
-### Update
-Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. You have to open your command (windows) or Terminal (Unix) then move to where you placed this folder in apache. Fow Windows using XAMPP it can be in `cd C:\xampp\htdocs\safeclinica` while for Linux it can be `cd /var/www/html/safeclinica` once in there you have to install dependencies using Composer. Just run `composer install` and wait for it to complete.
-
-You now have to generate a unique application key, while in the same folder; run the following command: `php artisan key:generate`. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
-
-At the moment the app is in development, installing it has been simplified but it will be even more better when it has been completed and RC1 has been left in the wild. In the meantime, it can be installed in the above process.
-
 ### Dependencies ###
 For this application to work, you need to have *Apache* and *Mysql*. Fow Windows, simply download and install XAMPP from *https://www.apachefriends.org/download.html* You can also read the documentation on how to install apache and mysql online.
 
@@ -49,6 +42,29 @@ this will download safeclinica and put it in you system.
 ~~`php artisan db:seed`~~
 ~~When the command above completes; ___(it may take a minute or two!)___ go ahead and close the terminal window.~~
 4. ~~Open your browser preferably Chrome or Firefox and go to *http://localhost/safeclinica/public* your application will open up and you may be prompted to register new users for an empty applicaion or log-in for a demo application. For demo application, the username is *administrator* and the password is *safeclinica*.~~
+
+
+### Update ###
+Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. You have to open your command (windows) or Terminal (Unix) then move to where you placed this folder in apache. Fow Windows using XAMPP it can be in `cd C:\xampp\htdocs\safeclinica` while for Linux it can be `cd /var/www/html/safeclinica` once in there you have to install dependencies using Composer. Just run `composer install` and wait for it to complete.
+
+You now have to generate a unique application key, while in the same folder; run the following command: `php artisan key:generate`. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
+
+If you want an empty new application that you can use in actual production(Health Facility), the first step (Create DB) will be automatically executed, you just click the secind step, Migrate Database. After it completes the process, click the third step to insert useful necessary data into the database. You will now be taken to the actual usable appliation login page.
+
+### Default Users ###
+The application comes with a number of default users. Thei usernames are also their passwords, you have to change them using the administrator account soon as you have installed the system. The users are into levels, there are six levels, administator, manager, doctor, laboratory technician, registration, user. ROles, users, passwords and descriptions are as follows:
+
+User 			| Password 		| Role 				| Description
+--- 			| --- 			| --- 				| ---
+*administrator* | administrator | System Admin 		| An IT technician who adds people and stuff
+*manager* 		| manager 		| Business Manager 	| A management personnel who views finances and charts
+*doctor* 		| doctor 		| Medical Personnel | Offers treaments and services
+*laboratory* 	| laboratory 	| Lab Technician 	| Does laboratory checks and issues results
+*registration* 	| registration 	| Reception Desl 	| Adds new patients in the system
+*user* 			| user 			| System User 		| Any other user of the system such as nurses
+
+At the moment the app is in development, installing it has been simplified but it will be even more better when it has been completed and RC1 has been left in the wild. In the meantime, it can be installed in the above process.
+*Go do something great!*
 
 ## Using the application ##
 *Usage docs will come up soon!*
