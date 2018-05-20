@@ -13,7 +13,11 @@ We have also set it for scalling up, it can also be deployed in a setting where 
 
 
 ## Installing SafeClinica
-At the moment the app is in development, installing it has been simplified but it will be even more better when it hass been completed and RC1 has been left in the wild. In the meantime, it can be installed in this process.
+
+### Update
+Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
+
+At the moment the app is in development, installing it has been simplified but it will be even more better when it has been completed and RC1 has been left in the wild. In the meantime, it can be installed in this process.
 
 ### Dependencies ###
 For this application to work, you need to have *Apache* and *Mysql*. You can read the documentation on how to install apache and mysql online.
