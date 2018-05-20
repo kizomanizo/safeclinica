@@ -18,8 +18,8 @@ Route::get('/', function() {
 
 Route::get('welcome', function() {
 
-	$db = new mysqli('localhost', 'root','', 'safefocus');
-	$database="safefocus";
+	$db = new mysqli('localhost', 'root','', 'safeclinica');
+	$database="safeclinica";
 	$query="SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=?";
 	$stmt = $db->prepare($query);
 	$stmt->bind_param('s',$database);

@@ -34,8 +34,8 @@
                          <!-- $pdo = new PDO('mysql:host=localhost;dbname=;charset=utf8mb4', 'root', 'safefocus'); @endphp
                              ($pdo->query('select database()')->fetchColumn() == '') -->
                                 @php
-                                    $db = new mysqli('localhost', 'root','', 'safefocus');
-                                    $database="safefocus";
+                                    $db = new mysqli('localhost', 'root','', 'safeclinica');
+                                    $database="safeclinica";
                                     $query="SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=?";
                                     $stmt = $db->prepare($query);
                                     $stmt->bind_param('s',$database);
