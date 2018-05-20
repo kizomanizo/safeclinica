@@ -64,6 +64,9 @@ User 			| Password 		| Role 				| Description
 *user* 			| user 			| System User 		| Any other user of the system such as nurses
 
 At the moment the app is in development, installing it has been simplified but it will be even more better when it has been completed and RC1 has been left in the wild. In the meantime, it can be installed in the above process.
+
+##Coming Soon##
+We are making a utility that enables applcation users to add services, treatments and investgations by dropping an excel file that contains the lists and specific prices.
 *Go do something great!*
 
 ## Using the application ##
