@@ -46,7 +46,7 @@ Once there, to get an empty application that you can start to use for your perso
 To get a demo application with bogus data inside do not stop there, once the migrate command is executed, run this command:
 `php artisan db:seed`
 When the command above completes; ___(it may take a minute or two!)___ go ahead and close the terminal window.
-4. Open your browser preferably Chrome or Firefox and go to *http://localhost/safefocus/public* your application will open up and you may be prompted to register new users for an empty applicaion or log-in for a demo application. For demo application, the username is *administrator* and the password is *safeclinica*.
+4. Open your browser preferably Chrome or Firefox and go to *http://localhost/safeclinica/public* your application will open up and you may be prompted to register new users for an empty applicaion or log-in for a demo application. For demo application, the username is *administrator* and the password is *safeclinica*.
 
 ## Using the application ##
 *Usage docs will come up soon!*
