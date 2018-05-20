@@ -30,7 +30,7 @@ this will move your current directory to where you should place safeclinica fold
 `git clone https://github.com/kizomanizo/safeclinica`
 this will download safeclinica and put it in you system.
 
-### ENV Configuration: ###
+### Configuration: ###
 1. ~~Via mysql create a new and empty database called *safefocus*~~
 2. In a text editor open a file called *.env.example* and scroll to where mysql database is defined and put in there your database username e.g. _root_ and your database password. For Save this file as *.env* removing the '.example' extension.
 3. ~~Open command line or terminal then go to the root folder you have just put the folder in apache i.e.~~
@@ -47,11 +47,14 @@ this will download safeclinica and put it in you system.
 ### Update ###
 Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. You have to open your command (windows) or Terminal (Unix) then move to where you placed this folder in apache. Fow Windows using XAMPP it can be in `cd C:\xampp\htdocs\safeclinica` while for Linux it can be `cd /var/www/html/safeclinica` once in there you have to install dependencies using Composer. Just run `composer install` and wait for it to complete.
 
-You now have to generate a unique application key, while in the same folder; run the following command: `php artisan key:generate`. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
+#### Database ####
+In your MySQL create a new databse called *safeclinica* and leave it empty. You now have to generate a unique application key, while in the same folder; run the following command: `php artisan key:generate`. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
+
+#### Run The App ####
 
 If you want an empty new application that you can use in actual production(Health Facility), the first step (Create DB) will be automatically executed, you just click the secind step, Migrate Database. After it completes the process, click the third step to insert useful necessary data into the database. You will now be taken to the actual usable appliation login page.
 
-### Default Users ###
+#### Default Users ####
 The application comes with a number of default users. Thei usernames are also their passwords, you have to change them using the administrator account soon as you have installed the system. The users are into levels, there are six levels, administator, manager, doctor, laboratory technician, registration, user. ROles, users, passwords and descriptions are as follows:
 
 User 			| Password 		| Role 				| Description
