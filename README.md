@@ -15,7 +15,7 @@ We have also set it for scalling up, it can also be deployed in a setting where 
 ## Installing SafeClinica
 
 ### Update
-Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
+Put this folder in your apache like explained below in previous directions. Also create the .env file as described below in old installation instructions. You have to open your command (windows) or Terminal (Unix) then move to where you placed this folder in apache. Fow Windows using XAMPP it can be in `cd C:\xampp\htdocs\safeclinica` while for Linux it can be `cd /var/www/html/safeclinica` once in there you have to install dependencies using Composer. Just run `composer install` and wait for it to complete. That is it, go to your browser and type `localhost/safeclinica/public` the installation process will complete automatically by following numbered clicks.
 
 At the moment the app is in development, installing it has been simplified but it will be even more better when it has been completed and RC1 has been left in the wild. In the meantime, it can be installed in this process.
 
